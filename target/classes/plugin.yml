@@ -1,0 +1,13 @@
+name: KannystraPluggins
+version: '1.0-SNAPSHOT'
+main: kannysta.plugins.KannystraPluggins
+api-version: '1.16'
+commands:
+  language:
+    usage: /language
+  мова:
+    usage: /мова
+  язык:
+    usage: /язык
+  home:
+    usage: /home
