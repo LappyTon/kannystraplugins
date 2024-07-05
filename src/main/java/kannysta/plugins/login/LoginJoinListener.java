@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
+import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
 
@@ -38,30 +39,49 @@ public class LoginJoinListener implements Listener {
                 player.teleport(plugin.getConfig().getLocation("home.LappyTon"));
                 player.sendMessage("Please log in");
                 loggingInPlayers.add(playerName);
+            } else {
+                player.sendMessage("no need to login");
             }
         }
     }
 
     @EventHandler
-    public void onPlayerSendMessage(AsyncPlayerChatEvent e) {
+    public void onPlayerSendMessage(PlayerChatEvent e) {
         Player player = e.getPlayer();
         String playerName = player.getName();
 
+        // Check if player is in the logging in list
         if (loggingInPlayers.contains(playerName)) {
-            e.setCancelled(true);
             String password = plugin.getConfig().getString("passwords." + playerName);
+            e.setCancelled(true);
 
+            // Debug message
+            player.sendMessage("DEBUG: Checking password...");
+
+            // Check if the entered password is correct
             if (e.getMessage().equalsIgnoreCase(password)) {
                 loggingInPlayers.remove(playerName);
                 player.sendMessage("You have been logged in successfully");
+
+                // Debug message
+                player.sendMessage("DEBUG: Password is correct. Logging in...");
+
                 plugin.getConfig().set("ip." + playerName, player.getAddress().getAddress().getHostAddress());
                 plugin.saveConfig();
             } else {
+                // Debug message
+                player.sendMessage("DEBUG: Password is incorrect.");
+
+                // Kick the player for incorrect password
                 player.kickPlayer("Incorrect password!");
+
+                // Ensure the player is removed from the loggingInPlayers list
                 loggingInPlayers.remove(playerName);
             }
         }
     }
+
+
 
     @EventHandler
     public void onPlayerMove(PlayerMoveEvent e) {
