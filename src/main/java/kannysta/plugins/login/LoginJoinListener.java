@@ -35,13 +35,13 @@ public class LoginJoinListener implements Listener {
             String storedIp = plugin.getConfig().getString(storedIpPath);
             String currentIp = player.getAddress().getAddress().getHostAddress();
 
-            if (storedIp == null || !currentIp.equals(storedIp)) {
-                player.teleport(plugin.getConfig().getLocation("home.LappyTon"));
+//            if (storedIp == null || !currentIp.equals(storedIp)) {
+                player.teleport(plugin.getConfig().getLocation("locations.login"));
                 player.sendMessage("Please log in");
                 loggingInPlayers.add(playerName);
-            } else {
-                player.sendMessage("no need to login");
-            }
+//            } else {
+//                player.sendMessage("no need to login");
+//            }
         }
     }
 
@@ -69,33 +69,23 @@ public class LoginJoinListener implements Listener {
                 plugin.getConfig().set("ip." + playerName, player.getAddress().getAddress().getHostAddress());
                 plugin.saveConfig();
             } else {
-                // Debug message
-                player.sendMessage("DEBUG: Password is incorrect.");
-
-                // Kick the player for incorrect password
-                player.kickPlayer("Incorrect password!");
-
-                // Ensure the player is removed from the loggingInPlayers list
-                loggingInPlayers.remove(playerName);
+                player.kickPlayer("Password is incorrect");
             }
         }
     }
 
 
-
     @EventHandler
-    public void onPlayerMove(PlayerMoveEvent e) {
-        if (loggingInPlayers.contains(e.getPlayer().getName())) {
+    public void onPlayerDamage(EntityDamageEvent e) {
+        if (e.getEntity().getWorld().equals(plugin.getServer().getWorld("login"))) {
             e.setCancelled(true);
         }
     }
 
     @EventHandler
-    public void onPlayerHurt(EntityDamageEvent e) {
-        if (e.getEntity() instanceof Player) {
-            if (loggingInPlayers.contains(e.getEntity().getName())) {
-                e.setCancelled(true);
-            }
+    public void onPlayerMove(PlayerMoveEvent e) {
+        if (loggingInPlayers.contains(e.getPlayer().getName())) {
+            e.setCancelled(true);
         }
     }
 }

@@ -1,9 +1,11 @@
 package kannysta.plugins.login;
 
 import kannysta.plugins.KannystraPluggins;
+import kannysta.plugins.utils.ChatTypes;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.player.*;
 
 import java.util.Arrays;
@@ -13,6 +15,7 @@ public class RegisterListeners implements Listener {
     private final HashMap<String, Boolean> registeringPlayers = new HashMap<>();
     private final HashMap<String, Boolean> langChoosingPlayers = new HashMap<>();
     private final KannystraPluggins plugin;
+    private final ChatTypes types = new ChatTypes();
 
     public RegisterListeners(KannystraPluggins plugin) {
         this.plugin = plugin;
@@ -25,14 +28,15 @@ public class RegisterListeners implements Listener {
         String lang = plugin.getConfig().getString("lang." + player.getName());
 
         if (lang == null || lang.isEmpty()) {
-            player.teleport(plugin.getConfig().getLocation("home.LappyTon"));
+            player.teleport(plugin.getConfig().getLocation("locations.register"));
             langChoosingPlayers.put(player.getUniqueId().toString(), true);
-            player.sendMessage("Choose language");
+            player.sendMessage(types.event("Choose language"));
+            player.sendMessage(types.info("Type /language, /мова, /язык"));
         } else {
             if (password == null || password.isEmpty()) {
                 player.teleport(plugin.getConfig().getLocation("home.LappyTon"));
                 registeringPlayers.put(player.getUniqueId().toString(), true);
-                player.sendMessage(plugin.getConfig().getString("messages.register." + lang));
+                player.sendMessage(types.event(plugin.getConfig().getString("messages.register." + lang)));
             }
         }
     }
@@ -42,10 +46,12 @@ public class RegisterListeners implements Listener {
         Player player = e.getPlayer();
         if (Boolean.TRUE.equals(registeringPlayers.get(player.getUniqueId().toString()))) {
             e.setCancelled(true);
-            player.sendMessage(plugin.getConfig().getString("messages.registerFirst." + plugin.getConfig().getString("lang." + player.getName())));
+            player.sendMessage(types.issue(plugin.getConfig().getString("messages.registerFirst." + plugin.getConfig().getString("lang." + player.getName()))));
         } else if (Boolean.TRUE.equals(langChoosingPlayers.get(player.getUniqueId().toString()))) {
             e.setCancelled(true);
-            player.sendMessage("Choose language first!");
+            player.sendMessage("");
+            player.sendMessage(types.issue("Choose language first!"));
+            player.sendMessage(types.info("Type /language, /мова, /язык"));
         }
     }
 
@@ -54,7 +60,9 @@ public class RegisterListeners implements Listener {
         Player player = e.getPlayer();
         if (Boolean.TRUE.equals(langChoosingPlayers.get(player.getUniqueId().toString()))) {
             e.setCancelled(true);
-            player.sendMessage("You can't do this while choosing a language.");
+            player.sendMessage("");
+            player.sendMessage(types.issue("You can't do this while choosing a language."));
+            player.sendMessage(types.info("Type /language, /мова, /язык"));
         }
     }
 
@@ -67,8 +75,22 @@ public class RegisterListeners implements Listener {
             plugin.getConfig().set("ip." + player.getName(), player.getAddress().getAddress().getHostAddress());
             registeringPlayers.remove(player.getUniqueId().toString());
             String lang = plugin.getConfig().getString("lang." + player.getName());
-            player.sendMessage(plugin.getConfig().getString("messages.registrationSuccess." + lang));
+            player.sendMessage(plugin.getConfig().getString(types.succes("messages.registrationSuccess." + lang)));
             plugin.saveConfig();
+        }
+    }
+
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent e) {
+        Player player = e.getPlayer();
+        if (langChoosingPlayers.get(player.getUniqueId().toString()) || registeringPlayers.get(player.getUniqueId().toString())) {
+            player.teleport(plugin.getConfig().getLocation("home.LappyTon"));
+        }
+    }
+    @EventHandler
+    public void onPlayerDamage(EntityDamageEvent e) {
+        if (e.getEntity().getWorld().equals(plugin.getServer().getWorld("register"))) {
+            e.setCancelled(true);
         }
     }
 
@@ -81,16 +103,15 @@ public class RegisterListeners implements Listener {
 
             if (Arrays.asList(commands).contains(command)) {
                 langChoosingPlayers.remove(player.getUniqueId().toString());
-                player.sendMessage(plugin.getConfig().getString("messages.register." + plugin.getConfig().getString("lang."+player.getName())));
                 registeringPlayers.put(player.getUniqueId().toString(), true);
             } else {
                 e.setCancelled(true);
-                player.sendMessage("You can't send commands while choosing a language! ");
-                player.sendMessage("Try /<word language in your lang>");
+                player.sendMessage(types.issue("You can't send commands while choosing a language! "));
+                player.sendMessage(types.info("Type /language, /мова, /язык"));
             }
         } else if (Boolean.TRUE.equals(registeringPlayers.get(player.getUniqueId().toString()))) {
             e.setCancelled(true);
-            player.sendMessage(plugin.getConfig().getString("messages.whileRegister." + plugin.getConfig().getString("lang." + player.getName())));
+            player.sendMessage(types.issue(plugin.getConfig().getString(types.issue("messages.whileRegister." + plugin.getConfig().getString("lang." + player.getName())))));
         }
     }
 }

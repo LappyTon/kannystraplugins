@@ -3,6 +3,7 @@ package kannysta.plugins;
 import kannysta.plugins.language.LanguageCommand;
 import kannysta.plugins.login.LoginJoinListener;
 import kannysta.plugins.login.RegisterListeners;
+import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class KannystraPluggins extends JavaPlugin {
@@ -25,6 +26,9 @@ public final class KannystraPluggins extends JavaPlugin {
         getCommand("язык").setExecutor(new LanguageCommand(this, "ru_RU"));
 
 //
+        getConfig().set("locations.register", new Location(getServer().getWorld("register"), 0.5, 63.0, 0.5, 0, 0));
+        getConfig().set("locations.login", new Location(getServer().getWorld("login"), 0.5, 65.0, 0.5, 0, 0));
+
         getConfig().set("messages.registrationSuccess.en_US", "Registration success!");
         getConfig().set("messages.registrationSuccess.uk_UA", "Успішна реєстрація!");
         getConfig().set("messages.registrationSuccess.ru_RU", "Успешная регистация!");
@@ -40,6 +44,8 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("messages.whileRegister.en_US", "You cant execute any commands while registering!");
         getConfig().set("messages.whileRegister.uk_UA", "ти не можеш писати команди поки ти не зареєстрований!");
         getConfig().set("messages.whileRegister.ru_RU", "Тебе нелзя писать команды пока ты не зарегестрирован!");
+
+
 //
         saveDefaultConfig();
     }
