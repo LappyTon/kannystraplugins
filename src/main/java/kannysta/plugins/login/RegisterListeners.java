@@ -74,8 +74,7 @@ public class RegisterListeners implements Listener {
             plugin.getConfig().set("passwords." + player.getName(), e.getMessage());
             plugin.getConfig().set("ip." + player.getName(), player.getAddress().getAddress().getHostAddress());
             registeringPlayers.remove(player.getUniqueId().toString());
-            String lang = plugin.getConfig().getString("lang." + player.getName());
-            player.sendMessage(plugin.getConfig().getString(types.succes("messages.registrationSuccess." + lang)));
+            player.sendMessage(types.succes(plugin.getConfig().getString("messages.registrationSuccess."+plugin.getConfig().getString("lang."+player.getName()))));
             plugin.saveConfig();
         }
     }
@@ -111,7 +110,7 @@ public class RegisterListeners implements Listener {
             }
         } else if (Boolean.TRUE.equals(registeringPlayers.get(player.getUniqueId().toString()))) {
             e.setCancelled(true);
-            player.sendMessage(types.issue(plugin.getConfig().getString(types.issue("messages.whileRegister." + plugin.getConfig().getString("lang." + player.getName())))));
+            player.sendMessage(types.issue(plugin.getConfig().getString("messages.whileRegister." + plugin.getConfig().getString("lang." + player.getName()))));
         }
     }
 }

@@ -29,9 +29,11 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("locations.register", new Location(getServer().getWorld("register"), 0.5, 63.0, 0.5, 0, 0));
         getConfig().set("locations.login", new Location(getServer().getWorld("login"), 0.5, 65.0, 0.5, 0, 0));
 
-        getConfig().set("messages.registrationSuccess.en_US", "Registration success!");
-        getConfig().set("messages.registrationSuccess.uk_UA", "Успішна реєстрація!");
-        getConfig().set("messages.registrationSuccess.ru_RU", "Успешная регистация!");
+
+        getConfig().set("messages.registrationSuccess.en_US", "Registration success!!");
+        getConfig().set("messages.registrationSuccess.uk_UA", "Успішна реєстрація");
+        getConfig().set("messages.registrationSuccess.ru_RU", "Успешная регистация");
+
 
         getConfig().set("messages.registerFirst.en_US", "Register first!");
         getConfig().set("messages.registerFirst.uk_UA", "Спочатку зареєструйтесь!");
