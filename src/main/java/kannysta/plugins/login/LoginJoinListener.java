@@ -1,12 +1,12 @@
 package kannysta.plugins.login;
 
 import kannysta.plugins.KannystraPluggins;
-import org.bukkit.entity.Entity;
+import kannysta.plugins.utils.ChatTypes;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerChatEvent;
 import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.event.player.PlayerMoveEvent;
@@ -17,9 +17,11 @@ import java.util.Set;
 public class LoginJoinListener implements Listener {
     private final KannystraPluggins plugin;
     private final Set<String> loggingInPlayers = new HashSet<>();
+    private final ChatTypes types;
 
     public LoginJoinListener(KannystraPluggins plugin) {
         this.plugin = plugin;
+        this.types = new ChatTypes();
     }
 
     @EventHandler
@@ -37,11 +39,10 @@ public class LoginJoinListener implements Listener {
 
 //            if (storedIp == null || !currentIp.equals(storedIp)) {
                 player.teleport(plugin.getConfig().getLocation("locations.login"));
-                player.sendMessage("Please log in");
+                player.sendMessage(types.event(plugin.getConfig().getString("messages.loginPlease."+plugin.getConfig().getString("lang."+player.getName()))));
+                player.sendMessage(types.info(plugin.getConfig().getString("messages.howToLogin."+plugin.getConfig().getString("lang."+player.getName()))));
                 loggingInPlayers.add(playerName);
-//            } else {
-//                player.sendMessage("no need to login");
-//            }
+//            } else {-
         }
     }
 
@@ -56,20 +57,25 @@ public class LoginJoinListener implements Listener {
             e.setCancelled(true);
 
             // Debug message
-            player.sendMessage("DEBUG: Checking password...");
+            player.sendMessage(types.event(plugin.getConfig().getString("messages.passwordCheck."+plugin.getConfig().getString("lang."+playerName))));
 
             // Check if the entered password is correct
             if (e.getMessage().equalsIgnoreCase(password)) {
                 loggingInPlayers.remove(playerName);
-                player.sendMessage("You have been logged in successfully");
+                player.sendMessage(types.succes(plugin.getConfig().getString("messages.passwordCorrect."+plugin.getConfig().getString("lang."+player.getName()))));
 
-                // Debug message
-                player.sendMessage("DEBUG: Password is correct. Logging in...");
+                if (player.getWorld().equals(plugin.getServer().getWorld("login"))) {
+                    if (plugin.getConfig().getLocation("leaveLocation."+player.getName()) == null) {
+                        player.teleport(plugin.getConfig().getLocation("locations.hub"));
+                    } else {
+                        player.teleport(plugin.getConfig().getLocation("leaveLocation."+player.getName()));
+                    }
+                }
 
                 plugin.getConfig().set("ip." + playerName, player.getAddress().getAddress().getHostAddress());
                 plugin.saveConfig();
             } else {
-                player.kickPlayer("Password is incorrect");
+                player.kickPlayer(types.issue(plugin.getConfig().getString("messages.passwordIncorrect."+plugin.getConfig().getString("lang."+player.getName()))));
             }
         }
     }

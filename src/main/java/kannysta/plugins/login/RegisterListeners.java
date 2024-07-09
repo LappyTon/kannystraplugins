@@ -46,11 +46,14 @@ public class RegisterListeners implements Listener {
         Player player = e.getPlayer();
         if (Boolean.TRUE.equals(registeringPlayers.get(player.getUniqueId().toString()))) {
             e.setCancelled(true);
+            player.sendMessage("");
             player.sendMessage(types.issue(plugin.getConfig().getString("messages.registerFirst." + plugin.getConfig().getString("lang." + player.getName()))));
+            player.sendMessage(types.info(plugin.getConfig().getString("messages.howToLogin." + plugin.getConfig().getString("lang." + player.getName()))));
+            player.sendMessage("");
         } else if (Boolean.TRUE.equals(langChoosingPlayers.get(player.getUniqueId().toString()))) {
             e.setCancelled(true);
             player.sendMessage("");
-            player.sendMessage(types.issue("Choose language first!"));
+            player.sendMessage(types.warning("Choose language first!"));
             player.sendMessage(types.info("Type /language, /мова, /язык"));
         }
     }
@@ -61,7 +64,7 @@ public class RegisterListeners implements Listener {
         if (Boolean.TRUE.equals(langChoosingPlayers.get(player.getUniqueId().toString()))) {
             e.setCancelled(true);
             player.sendMessage("");
-            player.sendMessage(types.issue("You can't do this while choosing a language."));
+            player.sendMessage(types.warning("You can't do this while choosing a language."));
             player.sendMessage(types.info("Type /language, /мова, /язык"));
         }
     }
@@ -75,6 +78,7 @@ public class RegisterListeners implements Listener {
             plugin.getConfig().set("ip." + player.getName(), player.getAddress().getAddress().getHostAddress());
             registeringPlayers.remove(player.getUniqueId().toString());
             player.sendMessage(types.succes(plugin.getConfig().getString("messages.registrationSuccess."+plugin.getConfig().getString("lang."+player.getName()))));
+            player.teleport(plugin.getConfig().getLocation("locations.hub"));
             plugin.saveConfig();
         }
     }

@@ -24,10 +24,11 @@ public class ChatTypes {
         string.append(ChatColor.WHITE+""+ChatColor.BOLD).append("=== ").append(s).append(" ===");
         return string.toString();
     }
+    
     public String info(String s) {
         StringBuilder string = new StringBuilder();
         String questionMark = ChatColor.BOLD+" "+ChatColor.WHITE+"<"+ChatColor.BLUE+"???"+ChatColor.WHITE+"> ";
-        string.append(questionMark).append(s).append(questionMark);
+        string.append(System.lineSeparator()).append(questionMark).append(s).append(questionMark).append(System.lineSeparator());
         return string.toString();
     }
 }

@@ -9,5 +9,8 @@ commands:
     usage: /мова
   язык:
     usage: /язык
-  home:
-    usage: /home
+  hub:
+    usage: /hub
+    aliases:
+      - хаб
+      - хаб
