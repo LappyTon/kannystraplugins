@@ -34,7 +34,7 @@ public class RegisterListeners implements Listener {
             player.sendMessage(types.info("Type /language, /мова, /язык"));
         } else {
             if (password == null || password.isEmpty()) {
-                player.teleport(plugin.getConfig().getLocation("home.LappyTon"));
+                player.teleport(plugin.getConfig().getLocation("locations.register"));
                 registeringPlayers.put(player.getUniqueId().toString(), true);
                 player.sendMessage(types.event(plugin.getConfig().getString("messages.register." + lang)));
             }
@@ -87,7 +87,7 @@ public class RegisterListeners implements Listener {
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
         if (langChoosingPlayers.get(player.getUniqueId().toString()) || registeringPlayers.get(player.getUniqueId().toString())) {
-            player.teleport(plugin.getConfig().getLocation("home.LappyTon"));
+            player.teleport(plugin.getConfig().getLocation("locations.register"));
         }
     }
     @EventHandler
@@ -106,6 +106,7 @@ public class RegisterListeners implements Listener {
 
             if (Arrays.asList(commands).contains(command)) {
                 langChoosingPlayers.remove(player.getUniqueId().toString());
+                player.sendMessage(types.event("Now register - just send your password in chat"));
                 registeringPlayers.put(player.getUniqueId().toString(), true);
             } else {
                 e.setCancelled(true);

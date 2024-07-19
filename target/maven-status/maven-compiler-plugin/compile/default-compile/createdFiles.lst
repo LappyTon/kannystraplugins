@@ -1,7 +1,10 @@
+kannysta/plugins/mainMenu/MainMenuCommand.class
 kannysta/plugins/login/RegisterListeners.class
+kannysta/plugins/FastSethomeCommand.class
 kannysta/plugins/littlecommands/HubCommand.class
 kannysta/plugins/login/PlayerLeaveListener.class
 kannysta/plugins/login/LoginJoinListener.class
+kannysta/plugins/mainMenu/MenuInventory.class
 kannysta/plugins/KannystraPluggins.class
 kannysta/plugins/language/LanguageCommand.class
 kannysta/plugins/utils/ChatTypes.class

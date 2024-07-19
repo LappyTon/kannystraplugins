@@ -18,22 +18,8 @@ public final class KannystraPluggins extends JavaPlugin {
         System.out.println(" ");
         System.out.println(" ");
 
+
         getConfig().options().copyDefaults();
-
-        getServer().getPluginManager().registerEvents(new PlayerLeaveListener(this), this);
-        getServer().getPluginManager().registerEvents(new RegisterListeners(this), this);
-        getServer().getPluginManager().registerEvents(new LoginJoinListener(this), this);
-//        getCommand("home").setExecutor(new FastSethomeCommand(this));
-        getCommand("hub").setExecutor(new HubCommand(this));
-        getCommand("language").setExecutor(new LanguageCommand(this, "en_US"));
-        getCommand("мова").setExecutor(new LanguageCommand(this, "uk_UA"));
-        getCommand("язык").setExecutor(new LanguageCommand(this, "ru_RU"));
-
-//
-        getConfig().set("locations.register", new Location(getServer().getWorld("register"), 0.5, 63.0, 0.5, 0, 0));
-        getConfig().set("locations.login", new Location(getServer().getWorld("login"), 0.5, 65.0, 0.5, 0, 0));
-        getConfig().set("locations.hub", new Location(getServer().getWorld("hub"), 0.5, 65.0, 0.5, 0, 0));
-
 
         getConfig().set("messages.registrationSuccess.en_US", "Registration success!!");
         getConfig().set("messages.registrationSuccess.uk_UA", "Успішна реєстрація");
@@ -80,8 +66,21 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("messages.hubTp.uk_UA", "Ви телепорутвались в хаб!");
         getConfig().set("messages.hubTp.ru_RU", "Вы были телепортированы в хаб!");
 
+        getServer().getPluginManager().registerEvents(new PlayerLeaveListener(this), this);
+        getServer().getPluginManager().registerEvents(new RegisterListeners(this), this);
+        getServer().getPluginManager().registerEvents(new LoginJoinListener(this), this);
+        getCommand("hub").setExecutor(new HubCommand(this));
+        getCommand("language").setExecutor(new LanguageCommand(this, "en_US"));
+        getCommand("мова").setExecutor(new LanguageCommand(this, "uk_UA"));
+        getCommand("язык").setExecutor(new LanguageCommand(this, "ru_RU"));
 
 //
+        getConfig().set("locations.register", new Location(getServer().getWorld("register"), 0.5, 63.0, 0.5, 0, 0));
+        getConfig().set("locations.login", new Location(getServer().getWorld("login"), 0.5, 65.0, 0.5, 0, 0));
+        getConfig().set("locations.hub", new Location(getServer().getWorld("testhub"), 0.5, 4.0, 0.5, 0, 0));
+
+//
+        saveConfig();
         saveDefaultConfig();
     }
 

@@ -5,4 +5,6 @@
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/FastSethomeCommand.java
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/utils/ChatTypes.java
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/login/LoginJoinListener.java
+/home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/mainMenu/MenuInventory.java
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/login/PlayerLeaveListener.java
+/home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/mainMenu/MainMenuCommand.java
