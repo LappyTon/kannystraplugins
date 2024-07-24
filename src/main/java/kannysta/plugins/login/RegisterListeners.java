@@ -2,6 +2,7 @@ package kannysta.plugins.login;
 
 import kannysta.plugins.KannystraPluggins;
 import kannysta.plugins.utils.ChatTypes;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -27,16 +28,22 @@ public class RegisterListeners implements Listener {
         String password = plugin.getConfig().getString("passwords." + player.getName());
         String lang = plugin.getConfig().getString("lang." + player.getName());
 
+        Location registerLocation = plugin.getConfig().getLocation("locations.register");
+        if (registerLocation == null) {
+            player.sendMessage(types.issue("Register location not set. Please contact an administrator."));
+            return;
+        }
+
         if (lang == null || lang.isEmpty()) {
-            player.teleport(plugin.getConfig().getLocation("locations.register"));
+            player.teleport(registerLocation);
             langChoosingPlayers.put(player.getUniqueId().toString(), true);
             player.sendMessage(types.event("Choose language"));
             player.sendMessage(types.info("Type /language, /мова, /язык"));
         } else {
             if (password == null || password.isEmpty()) {
-                player.teleport(plugin.getConfig().getLocation("locations.register"));
+                player.teleport(registerLocation);
                 registeringPlayers.put(player.getUniqueId().toString(), true);
-                player.sendMessage(types.event(plugin.getConfig().getString("messages.register." + lang)));
+                player.sendMessage(types.event(plugin.getConfig().getString("messages.register." + lang, "Please register")));
             }
         }
     }
@@ -58,27 +65,27 @@ public class RegisterListeners implements Listener {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
-    public void onLangChoosingPlayerChat(PlayerChatEvent e) {
+    public void onPlayerChat(PlayerChatEvent e) {
         Player player = e.getPlayer();
         if (Boolean.TRUE.equals(langChoosingPlayers.get(player.getUniqueId().toString()))) {
             e.setCancelled(true);
             player.sendMessage("");
             player.sendMessage(types.warning("You can't do this while choosing a language."));
             player.sendMessage(types.info("Type /language, /мова, /язык"));
-        }
-    }
-
-    @EventHandler
-    public void onRegisteringPlayerChat(PlayerChatEvent e) {
-        Player player = e.getPlayer();
-        if (Boolean.TRUE.equals(registeringPlayers.get(player.getUniqueId().toString()))) {
+        } else if (Boolean.TRUE.equals(registeringPlayers.get(player.getUniqueId().toString()))) {
             e.setCancelled(true);
             plugin.getConfig().set("passwords." + player.getName(), e.getMessage());
             plugin.getConfig().set("ip." + player.getName(), player.getAddress().getAddress().getHostAddress());
             registeringPlayers.remove(player.getUniqueId().toString());
             player.sendMessage(types.succes(plugin.getConfig().getString("messages.registrationSuccess."+plugin.getConfig().getString("lang."+player.getName()))));
-            player.teleport(plugin.getConfig().getLocation("locations.hub"));
+            Location hubLocation = plugin.getConfig().getLocation("locations.hub");
+            if (hubLocation != null) {
+                player.teleport(hubLocation);
+            } else {
+                player.sendMessage(types.issue("Hub location not set. Please contact an administrator."));
+            }
             plugin.saveConfig();
         }
     }
@@ -86,10 +93,18 @@ public class RegisterListeners implements Listener {
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent e) {
         Player player = e.getPlayer();
-        if (langChoosingPlayers.get(player.getUniqueId().toString()) || registeringPlayers.get(player.getUniqueId().toString())) {
-            player.teleport(plugin.getConfig().getLocation("locations.register"));
+        Boolean isLangChoosing = langChoosingPlayers.get(player.getUniqueId().toString());
+        Boolean isRegistering = registeringPlayers.get(player.getUniqueId().toString());
+        if (Boolean.TRUE.equals(isLangChoosing) || Boolean.TRUE.equals(isRegistering)) {
+            Location registerLocation = plugin.getConfig().getLocation("locations.register");
+            if (registerLocation != null) {
+                player.teleport(registerLocation);
+            } else {
+                player.sendMessage(types.issue("Register location not set. Please contact an administrator."));
+            }
         }
     }
+
     @EventHandler
     public void onPlayerDamage(EntityDamageEvent e) {
         if (e.getEntity().getWorld().equals(plugin.getServer().getWorld("register"))) {

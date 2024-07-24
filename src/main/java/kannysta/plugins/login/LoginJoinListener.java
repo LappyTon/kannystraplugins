@@ -38,17 +38,26 @@ public class LoginJoinListener implements Listener {
             String currentIp = player.getAddress().getAddress().getHostAddress();
 
             if (storedIp == null || !currentIp.equals(storedIp)) {
-                player.teleport(plugin.getConfig().getLocation("locations.login"));
+                Location loginLocation = plugin.getConfig().getLocation("locations.login");
+                if (loginLocation != null) {
+                    player.teleport(loginLocation);
+                } else {
+                    player.sendMessage(types.issue("Login location not set. Please contact an administrator."));
+                }
                 player.sendMessage(types.event(plugin.getConfig().getString("messages.loginPlease."+plugin.getConfig().getString("lang."+player.getName()))));
                 player.sendMessage(types.info(plugin.getConfig().getString("messages.howToLogin."+plugin.getConfig().getString("lang."+player.getName()))));
                 loggingInPlayers.add(playerName);
             } else {
-                player.teleport(plugin.getConfig().getLocation("leaveLocation."+player.getName()));
+                Location leaveLocation = plugin.getConfig().getLocation("leaveLocation."+player.getName());
+                if (leaveLocation!=null) {
+                    player.teleport(leaveLocation);
+                }
                 player.sendMessage(types.succes(plugin.getConfig().getString("messages.noNeedLogin."+plugin.getConfig().getString("lang."+player.getName()))));
             }
         }
     }
 
+    @SuppressWarnings("deprecation")
     @EventHandler
     public void onPlayerSendMessage(PlayerChatEvent e) {
         Player player = e.getPlayer();

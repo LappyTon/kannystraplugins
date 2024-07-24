@@ -13,4 +13,10 @@ commands:
     usage: /hub
     aliases:
       - хаб
-      - хаб
+  worlds:
+    aliases:
+      - світи
+      - миры
+  menu:
+    aliases:
+      - меню

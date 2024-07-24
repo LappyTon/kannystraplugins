@@ -7,15 +7,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 
-public class WolrdsCommand implements CommandExecutor {
+public class WorldsCommand implements CommandExecutor {
     private final KannystraPluggins plugin;
     private MenuInventory inventory;
-
     private Inventory Inventory;
 
-    public WolrdsCommand(KannystraPluggins plugin) {
+    public WorldsCommand(KannystraPluggins plugin) {
         this.plugin = plugin;
-        this.inventory = new MenuInventory();
+        this.inventory = new MenuInventory(plugin);
     }
 
     @Override
@@ -23,7 +22,7 @@ public class WolrdsCommand implements CommandExecutor {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            player.openInventory(inventory.MainInventory(player));
+            player.openInventory(inventory.WorldsInventory(player));
         }
 
         return true;

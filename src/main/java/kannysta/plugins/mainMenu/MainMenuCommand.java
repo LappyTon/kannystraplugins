@@ -16,7 +16,7 @@ public class MainMenuCommand implements CommandExecutor {
 
     public MainMenuCommand(KannystraPluggins plugin) {
         this.plugin = plugin;
-        this.inventory = new MenuInventory();
+        this.inventory = new MenuInventory(plugin);
     }
 
     @Override
@@ -24,7 +24,7 @@ public class MainMenuCommand implements CommandExecutor {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            player.openInventory(Inventory);
+            player.openInventory(inventory.MainInventory(player));
         }
 
         return true;

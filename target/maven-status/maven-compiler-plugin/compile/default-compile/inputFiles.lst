@@ -1,8 +1,9 @@
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/login/RegisterListeners.java
+/home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/mainMenu/WorldsInventoryListener.java
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/KannystraPluggins.java
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/language/LanguageCommand.java
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/littlecommands/HubCommand.java
-/home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/FastSethomeCommand.java
+/home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/mainMenu/WorldsCommand.java
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/utils/ChatTypes.java
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/login/LoginJoinListener.java
 /home/lappyton/work/kannystraplugins/src/main/java/kannysta/plugins/mainMenu/MenuInventory.java
