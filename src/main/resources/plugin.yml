@@ -1,0 +1,26 @@
+name: KannystraPluggins
+version: '0.9'
+main: kannysta.plugins.KannystraPluggins
+api-version: '1.21'
+name: KannystraPluggins
+version: '${project.version}'
+main: kannysta.plugins.KannystraPluggins
+api-version: '1.16'
+commands:
+  language:
+    usage: /language
+  мова:
+    usage: /мова
+  язык:
+    usage: /язык
+  hub:
+    usage: /hub
+    aliases:
+      - хаб
+  worlds:
+    aliases:
+      - світи
+      - миры
+  menu:
+    aliases:
+      - меню
