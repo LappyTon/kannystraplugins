@@ -44,12 +44,13 @@ public class LoginJoinListener implements Listener {
                 Location loginLocation = plugin.getConfig().getLocation("locations.login");
                 if (loginLocation != null) {
                     player.teleport(loginLocation);
-                } else {
-                    tabChange.LoginTabChange(player);
                     player.sendMessage(types.issue("Login location not set. Please contact an administrator."));
                     player.sendMessage(types.event(plugin.getConfig().getString("messages.loginPlease."+plugin.getConfig().getString("lang."+player.getName()))));
                     player.sendMessage(types.info(plugin.getConfig().getString("messages.howToLogin."+plugin.getConfig().getString("lang."+player.getName()))));
+                    tabChange.LoginTabChange(player);
                     loggingInPlayers.add(playerName);
+                } else {
+                    tabChange.LoginTabChange(player);
                 }
             } else {
                 Location leaveLocation = plugin.getConfig().getLocation("leaveLocation."+player.getName());
@@ -82,7 +83,6 @@ public class LoginJoinListener implements Listener {
 
                 if (player.getWorld().equals(plugin.getServer().getWorld("login"))) {
                     if (plugin.getConfig().getLocation("leaveLocation."+player.getName()) == null) {
-                        player.sendMessage("1");
                         player.teleport(plugin.getConfig().getLocation("locations.hub"));
                     } else {
                         player.teleport(plugin.getConfig().getLocation("leaveLocation."+player.getName()));

@@ -2,6 +2,8 @@ package kannysta.plugins.littlecommands;
 
 import kannysta.plugins.KannystraPluggins;
 import kannysta.plugins.utils.ChatTypes;
+
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -18,8 +20,12 @@ public class HubCommand implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender sender, Command command, String label, String[] args) {
+        Location hub = plugin.getConfig().getLocation("locations.hub");
+        if (hub==null) {
+            return false;
+        }
         Player player = (Player) sender;
-        player.teleport(plugin.getConfig().getLocation("locations.hub"));
+        player.teleport(hub);
         player.sendMessage(types.event(plugin.getConfig().getString("messages.hubTp."+plugin.getConfig().getString("lang."+player.getName()))));
         return true;
     }

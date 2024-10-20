@@ -213,11 +213,6 @@ public final class KannystraPluggins extends JavaPlugin {
         saveDefaultConfig();
     }
 
-    public void PvpTabChange(Player p, Player enemy) {
-        TabChange tabChange = new TabChange(this);
-        tabChange.PvpTabChange(p, enemy);
-    }
-
     @Override
     public void onDisable() {
         // Plugin shutdown logic
