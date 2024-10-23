@@ -8,10 +8,9 @@ import kannysta.plugins.login.RegisterListeners;
 import kannysta.plugins.mainMenu.MainMenuCommand;
 import kannysta.plugins.mainMenu.WorldsCommand;
 import kannysta.plugins.mainMenu.WorldsInventoryListener;
-import kannysta.plugins.tab.TabChange;
 
+import kannysta.plugins.utils.ChatTypes;
 import org.bukkit.Location;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class KannystraPluggins extends JavaPlugin {
@@ -163,10 +162,13 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("messages.minigamesFacts5.uk_UA", "5");
         getConfig().set("messages.minigamesFacts5.ru_RU", "5");
 
-
-        getConfig().set("messages.minigamesFacts5.en_US", "5");
-        getConfig().set("messages.minigamesFacts5.uk_UA", "5");
-        getConfig().set("messages.minigamesFacts5.ru_RU", "5");
+        getConfig().set("messages.damagedAlreadyInPvp.en_US", "Damaged player is already fighting!");
+        getConfig().set("messages.damagedAlreadyInPvp.uk_UA", "Вдарений гравець вже в ПвП!");
+        getConfig().set("messages.damagedAlreadyInPvp.ru_RU", "Ударенный игрок уже в ПВП");
+        
+        getConfig().set("messages.cantDamageBetter.en_US", "You cant damage players with better armor");
+        getConfig().set("messages.cantDamageBetter.uk_UA", "Ти не можеш атакувати людей з кращою бронею");
+        getConfig().set("messages.cantDamageBetter.ru_RU", "Ты не можешь атаковать людей с лучшей броней");
 
         getConfig().set("translate.name.en_US", "Name: ");
         getConfig().set("translate.name.uk_UA", "Ім'я: ");
@@ -211,7 +213,10 @@ public final class KannystraPluggins extends JavaPlugin {
 //
         saveConfig();
         saveDefaultConfig();
+
     }
+//        Get utils
+
 
     @Override
     public void onDisable() {
