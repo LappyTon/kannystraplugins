@@ -190,9 +190,17 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("translate.online.uk_UA", "Онлайн: ");
         getConfig().set("translate.online.ru_RU", "Онлайн: ");
 
-        getConfig().set("translate.inPvpMode.en_US", "PvP mode is enabled!");
-        getConfig().set("translate.inPvpMode.uk_UA", "ПвП режим ввімкнений!");
-        getConfig().set("translate.inPvpMode.ru_RU", "Пвп режим включен!");
+        getConfig().set("translate.timeRemaining.en_US", "Time Remaining: ");
+        getConfig().set("translate.timeRemaining.uk_UA", "Часу залишилось: ");
+        getConfig().set("translate.timeRemaining.ru_RU", "Времени осталось: ");
+        
+        getConfig().set("translate.pvpStarted.en_US", "Pvp started!");
+        getConfig().set("translate.pvpStarted.uk_UA", "Пвп почалось!");
+        getConfig().set("translate.pvpStarted.ru_RU", "Пвп началось!");
+
+        getConfig().set("translate.arena.en_US", "Arena: ");
+        getConfig().set("translate.arena.uk_UA", "Арена: ");
+        getConfig().set("translate.arena.ru_RU", "Арена: ");
 
         getServer().getPluginManager().registerEvents(new PlayerLeaveListener(this), this);
         getServer().getPluginManager().registerEvents(new WorldsInventoryListener(this), this);
