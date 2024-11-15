@@ -1,15 +1,19 @@
 package kannysta.plugins;
 
 import kannysta.plugins.language.LanguageCommand;
+import kannysta.plugins.littlecommands.FeedCommand;
 import kannysta.plugins.littlecommands.HubCommand;
+import kannysta.plugins.littlecommands.RtpCommand;
 import kannysta.plugins.login.LoginJoinListener;
 import kannysta.plugins.login.PlayerLeaveListener;
 import kannysta.plugins.login.RegisterListeners;
 import kannysta.plugins.mainMenu.MainMenuCommand;
-import kannysta.plugins.mainMenu.WorldsCommand;
-import kannysta.plugins.mainMenu.WorldsInventoryListener;
+import kannysta.plugins.worlds.HubListeners;
+import kannysta.plugins.worlds.PvpWorlds;
+import kannysta.plugins.worlds.PvpWorldsCommand;
+import kannysta.plugins.worlds.WorldsCommand;
+import kannysta.plugins.worlds.WorldsInventoryListener;
 
-import kannysta.plugins.utils.ChatTypes;
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -23,18 +27,60 @@ public final class KannystraPluggins extends JavaPlugin {
         System.out.println(" ");
         System.out.println(" ");
 
-
         getConfig().options().copyDefaults();
+        
+        // getConfig().set("messages..en_US", "");
+        // getConfig().set("messages..uk_UA", "");
+        // getConfig().set("messages..ru_RU", "");
 
-        // getConfig().set("messages.", "");
+        getConfig().set("messages.badVersion.en_US", "Unsupported version! Join from version specified in world's description");
+        getConfig().set("messages.badVersion.uk_UA", "Непідтримувана версія! Приєднайтеся з версії, вказаної в описі світу");
+        getConfig().set("messages.badVersion.ru_RU", "Неподдерживаемая версия! Присоединитесь с версии, указанной в описании мира");
+        
+        getConfig().set("messages.soupPvp.en_US", "Soup 1.8.9");
+        getConfig().set("messages.soupPvp.uk_UA", "Суп 1.8.9");
+        getConfig().set("messages.soupPvp.ru_RU", "Сут 1.8.9");
 
-        getConfig().set("messages.serverIpAddress.en_US", "Registration success!!");
-        getConfig().set("messages.serverIpAddress.uk_UA", "Успішна реєстрація");
-        getConfig().set("messages.serverIpAddress.ru_RU", "Успешная регистация");
+        getConfig().set("messages.beastPvp.en_US", "Beast 1.12.2");
+        getConfig().set("messages.beastPvp.uk_UA", "Beast 1.12.2");
+        getConfig().set("messages.beastPvp.ru_RU", "Beast 1.12.2");
 
-        getConfig().set("messages.registrationSuccess.en_US", "Registration success!!");
-        getConfig().set("messages.registrationSuccess.uk_UA", "Успішна реєстрація");
-        getConfig().set("messages.registrationSuccess.ru_RU", "Успешная регистация");
+        getConfig().set("messages.smpPvp.en_US", "Smp 1.21.1");
+        getConfig().set("messages.smpPvp.uk_UA", "Smp 1.21.1");
+        getConfig().set("messages.smpPvp.ru_RU", "Smp 1.21.1");
+
+        getConfig().set("messages.crystalPvp.en_US", "CPvp 1.12.2");
+        getConfig().set("messages.crystalPvp.uk_UA", "КПвп 1.12.2");
+        getConfig().set("messages.crystalPvp.ru_RU", "КПвп 1.12.2");
+
+        getConfig().set("messages.customDuel.en_US", "Custom duel");
+        getConfig().set("messages.customDuel.uk_UA", "Кастомна дуель");
+        getConfig().set("messages.customDuel.ru_RU", "Кастомная дуэль");
+
+        getConfig().set("messages.noSoupPvp.en_US", "Default 1.8.9");
+        getConfig().set("messages.noSoupPvp.uk_UA", "Стандарт 1.8.9");
+        getConfig().set("messages.noSoupPvp.ru_RU", "Стандарт 1.8.9");
+
+        getConfig().set("messages.diamondPvp.en_US", "Default 1.12.2");
+        getConfig().set("messages.diamondPvp.uk_UA", "Стандарт 1.12.2");
+        getConfig().set("messages.diamondPvp.ru_RU", "Стандарт 1.12.2");
+
+        getConfig().set("messages.netherPvp.en_US", "Default 1.16.5");
+        getConfig().set("messages.netherPvp.uk_UA", "Стандарт 1.16.5");
+        getConfig().set("messages.netherPvp.ru_RU", "Стандарт 1.16.5");
+
+        getConfig().set("messages.anchorPvp.en_US", "Anchor 1.21.1");
+        getConfig().set("messages.anchorPvp.uk_UA", "Якір 1.21.1");
+        getConfig().set("messages.anchorPvp.ru_RU", "Якорь 1.21.1");
+
+        getConfig().set("messages.classicDuel.en_US", "Classic duel");
+        getConfig().set("messages.classicDuel.uk_UA", "Класична дуель");
+        getConfig().set("messages.classicDuel.ru_RU", "Классическая дуэль");
+
+
+        getConfig().set("messages.serverIpAddress.en_US", "ip: mc.Kannystra.com");
+        getConfig().set("messages.serverIpAddress.uk_UA", "ip: mc.Kannystra.com");
+        getConfig().set("messages.serverIpAddress.ru_RU", "ip: mc.Kannystra.com");
 
         getConfig().set("messages.registrationSuccess.en_US", "Registration success!!");
         getConfig().set("messages.registrationSuccess.uk_UA", "Успішна реєстрація");
@@ -170,6 +216,20 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("messages.cantDamageBetter.uk_UA", "Ти не можеш атакувати людей з кращою бронею");
         getConfig().set("messages.cantDamageBetter.ru_RU", "Ты не можешь атаковать людей с лучшей броней");
 
+        getConfig().set("messages.noRtpLocation.en_US", "There is no valid RTP locations in world! Try again");
+        getConfig().set("messages.noRtpLocation.uk_UA", "У світі немає безпечних місць RTP! Спробуйте знову");
+        getConfig().set("messages.noRtpLocation.ru_RU", "В мире нет безопасных локаций RTP! Попробуйте еще раз");
+
+        getConfig().set("messages.rtpCooldown.en_US", "Random teleportation is on cooldown! Try again after ");
+        getConfig().set("messages.rtpCooldown.uk_UA", "Випадкова телепортація перезаряджається! Спробуйте знову через ");
+        getConfig().set("messages.rtpCooldown.ru_RU", "Случайная телепортация находится на перезарядке! Попробуйте еще раз после ");
+
+        getConfig().set("messages.feedCooldown.en_US", "Feed command is on cooldown! Try again after ");
+        getConfig().set("messages.feedCooldown.uk_UA", "Команда сытости перезаряжается! Попробуйте снова через ");
+        getConfig().set("messages.feedCooldown.ru_RU", " находится на перезарядке! Попробуйте еще раз после ");
+        
+// you dont have access to /feed
+
         getConfig().set("translate.name.en_US", "Name: ");
         getConfig().set("translate.name.uk_UA", "Ім'я: ");
         getConfig().set("translate.name.ru_RU", "Имя: ");
@@ -202,21 +262,32 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("translate.arena.uk_UA", "Арена: ");
         getConfig().set("translate.arena.ru_RU", "Арена: ");
 
+
+
+
+        getConfig().set("cooldowns.feed.c3a7ef25-aa49-32b9-a3a5-fcfa1958b68e", 1);
+        
         getServer().getPluginManager().registerEvents(new PlayerLeaveListener(this), this);
         getServer().getPluginManager().registerEvents(new WorldsInventoryListener(this), this);
         getServer().getPluginManager().registerEvents(new RegisterListeners(this), this);
+        getServer().getPluginManager().registerEvents(new PvpWorlds(this), this);
+        getServer().getPluginManager().registerEvents(new HubListeners(this), this);
         getServer().getPluginManager().registerEvents(new LoginJoinListener(this), this);
+        getCommand("pvp").setExecutor(new PvpWorldsCommand(this));
         getCommand("hub").setExecutor(new HubCommand(this));
+        getCommand("feed").setExecutor(new FeedCommand(this));
+        getCommand("menu").setExecutor(new MainMenuCommand(this));
+        getCommand("worlds").setExecutor(new WorldsCommand(this));
+        getCommand("rtp").setExecutor(new RtpCommand(this));
+
         getCommand("language").setExecutor(new LanguageCommand(this, "en_US"));
         getCommand("мова").setExecutor(new LanguageCommand(this, "uk_UA"));
         getCommand("язык").setExecutor(new LanguageCommand(this, "ru_RU"));
-        getCommand("menu").setExecutor(new MainMenuCommand(this));
-        getCommand("worlds").setExecutor(new WorldsCommand(this));
 
 //
         getConfig().set("locations.register", new Location(getServer().getWorld("register"), 0.5, 65.0, 0.5, 0, 0));
         getConfig().set("locations.login", new Location(getServer().getWorld("login"), 0.5, 63.0, 0.5, 0, 0));
-        getConfig().set("locations.hub", new Location(getServer().getWorld("hub"), 0.5, -60.0, 0.5, 0, 0));
+        getConfig().set("locations.hub", new Location(getServer().getWorld("hub"), -179, 38, 843, 0, 0));
 
 //
         saveConfig();

@@ -20,3 +20,18 @@ commands:
   menu:
     aliases:
       - меню
+  pvp:
+    aliases:
+      - pvpworlds
+      - пвп
+      - пвпсвіти
+      - пвпмиры
+  feed:
+    aliases:
+      - голод
+      - годувати
+      - кормить
+  rtp:
+    aliases:
+      - randomtp
+      - ртп

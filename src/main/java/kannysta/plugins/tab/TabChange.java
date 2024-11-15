@@ -32,6 +32,4 @@ public class TabChange {
                 ChatColor.DARK_GREEN + config.getString("translate.openChatAndEnterPassword."+locale) +"\n";
         p.setPlayerListHeaderFooter(header, footer);
     }
-
-
 }

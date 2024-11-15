@@ -1,22 +1,19 @@
 package kannysta.plugins.mainMenu;
 
 import kannysta.plugins.KannystraPluggins;
+import kannysta.plugins.Utils;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.Inventory;
 
 public class MainMenuCommand implements CommandExecutor {
 
-    private final KannystraPluggins plugin;
-    private MenuInventory inventory;
-
-    private Inventory Inventory;
+    private Utils utils;
 
     public MainMenuCommand(KannystraPluggins plugin) {
-        this.plugin = plugin;
-        this.inventory = new MenuInventory(plugin);
+        this.utils = new Utils(plugin);
     }
 
     @Override
@@ -24,7 +21,7 @@ public class MainMenuCommand implements CommandExecutor {
 
         if (sender instanceof Player) {
             Player player = (Player) sender;
-            player.openInventory(inventory.MainInventory(player));
+            player.openInventory(utils.fullInventory(player));
         }
 
         return true;

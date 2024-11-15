@@ -1,6 +1,8 @@
-package kannysta.plugins.mainMenu;
+package kannysta.plugins.worlds;
 
 import kannysta.plugins.KannystraPluggins;
+import kannysta.plugins.mainMenu.MenuInventory;
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

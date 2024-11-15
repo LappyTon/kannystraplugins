@@ -38,14 +38,12 @@ public class PlayerLeaveListener implements Listener {
     public void onPlayerLeave(PlayerQuitEvent e) {
         Player player = e.getPlayer();
         Location leaveLocation = e.getPlayer().getLocation();
-
+        
         if (!Objects.equals(leaveLocation.getWorld(), plugin.getServer().getWorld("register")) &&
                 !Objects.equals(leaveLocation.getWorld(), plugin.getServer().getWorld("login")) &&
                 !Objects.equals(leaveLocation.getWorld(), plugin.getServer().getWorld("testhub"))) {
 
             System.out.println(player.getName()+"  :  "+player.getLocation()+" [kannystra]");
-
-            player.kickPlayer("lol");
 
             plugin.getConfig().set("leaveLocation."+player.getName(), leaveLocation);
             plugin.saveConfig();
