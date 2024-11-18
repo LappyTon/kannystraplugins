@@ -13,6 +13,7 @@ import kannysta.plugins.worlds.PvpWorlds;
 import kannysta.plugins.worlds.PvpWorldsCommand;
 import kannysta.plugins.worlds.WorldsCommand;
 import kannysta.plugins.worlds.WorldsInventoryListener;
+import kannysta.plugins.worlds.commands.netherPvp;
 
 import org.bukkit.Location;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,7 +33,66 @@ public final class KannystraPluggins extends JavaPlugin {
         // getConfig().set("messages..en_US", "");
         // getConfig().set("messages..uk_UA", "");
         // getConfig().set("messages..ru_RU", "");
+        getConfig().set("messages.enabled.en_US", "ENABLED");
+        getConfig().set("messages.enabled.uk_UA", "УВІМКНЕНО");
+        getConfig().set("messages.enabled.ru_RU", "ВКЛЮЧЕНО");
+        
+        getConfig().set("messages.disabled.en_US", "DISABLED");
+        getConfig().set("messages.disabled.uk_UA", "ВИМКНЕНО");
+        getConfig().set("messages.disabled.ru_RU", "ВЫКЛЮЧЕНО");
+        
+        getConfig().set("messages.worldChat.en_US", "Global chat messages: LOCAL WORLD CHAT");
+        getConfig().set("messages.worldChat.uk_UA", "Повідомлення глобального чату: ЛОКАЛЬНИЙ ЧАТ СВІТУ");
+        getConfig().set("messages.worldChat.ru_RU", "Сообщения глобального чата: ЛОКАЛЬНЫЙ ЧАТ МИРА");
+        
+        getConfig().set("messages.noChat.en_US", "Global chat messages: CHAT DISABLED");
+        getConfig().set("messages.noChat.uk_UA", "Повідомлення глобального чату: ЧАТ ВИМКНЕНО");
+        getConfig().set("messages.noChat.ru_RU", "Сообщения глобального чата: ЧАТ ОТКЛЮЧЕН");
+        
+        getConfig().set("messages.clanChat.en_US", "Global chat messages: CLAN CHAT");
+        getConfig().set("messages.clanChat.uk_UA", "Повідомлення глобального чату: ЧАТ КЛАНУ");
+        getConfig().set("messages.clanChat.ru_RU", "Сообщения глобального чата: ЧАТ КЛАНА");
+        
+        getConfig().set("messages.globalChat.en_US", "Global chat messages: GLOBAL WORLDS CHAT");
+        getConfig().set("messages.globalChat.uk_UA", "Повідомлення глобального чату: ГЛОБАЛЬНИЙ ЧАТ");
+        getConfig().set("messages.globalChat.ru_RU", "Сообщения глобального чата: ГЛОБАЛЬНЫЙ ЧАТ");
+        
+        getConfig().set("messages.chatLang_eng.en_US", "Global chat language: English");
+        getConfig().set("messages.chatLang_eng.uk_UA", "Мова глобального чату: Англійська");
+        getConfig().set("messages.chatLang_eng.ru_RU", "Язык глобального чата: Английский");
+        
+        getConfig().set("messages.chatLang_ru.en_US", "Global chat language: Russian");
+        getConfig().set("messages.chatLang_ru.uk_UA", "Мова глобального чату: Російська");
+        getConfig().set("messages.chatLang_ru.ru_RU", "Язык глобального чата: Русский");
+        
+        getConfig().set("messages.chatLang_ua.en_US", "Global chat language: Ukrainian");
+        getConfig().set("messages.chatLang_ua.uk_UA", "Мова глобального чату: Українська");
+        getConfig().set("messages.chatLang_ua.ru_RU", "Язык глобального чата: Украинский");
+        
+        getConfig().set("messages.newbieTips.en_US", "Newbie tips:");
+        getConfig().set("messages.newbieTips.uk_UA", "Поради для новачків:");
+        getConfig().set("messages.newbieTips.ru_RU", "Советы для новичков:");
+        
+        getConfig().set("messages.playersPrefix.en_US", "Change prefixes for players");
+        getConfig().set("messages.playersPrefix.uk_UA", "Змінити префікси для гравців");
+        getConfig().set("messages.playersPrefix.ru_RU", "Изменить префиксы для игроков");
+        
+        getConfig().set("messages.monochrome.en_US", "Monochrome (white-black) chat mode:");
+        getConfig().set("messages.monochrome.uk_UA", "Режим монохромного (чорно-білого) чату:");
+        getConfig().set("messages.monochrome.ru_RU", "Режим монохромного (чёрно-белого) чата:");
+        
+        getConfig().set("messages.chatConfig.en_US", "Chat configuration");
+        getConfig().set("messages.chatConfig.uk_UA", "Змінити чат");
+        getConfig().set("messages.chatConfig.ru_RU", "Поменять чат");
 
+        getConfig().set("messages.wait.en_US", "Wait one more sec...");
+        getConfig().set("messages.wait.uk_UA", "Почекай секунду...");
+        getConfig().set("messages.wait.ru_RU", "Подожди секунду...");
+
+        getConfig().set("messages.registerTimePassed.en_US", "Time for register passed! Try again");
+        getConfig().set("messages.registerTimePassed.uk_UA", "Час реєстрації вийшов! Спробуйте ще раз");
+        getConfig().set("messages.registerTimePassed.ru_RU", "Время регистрации вышло! Попробуйте еще раз");
+        
         getConfig().set("messages.badVersion.en_US", "Unsupported version! Join from version specified in world's description");
         getConfig().set("messages.badVersion.uk_UA", "Непідтримувана версія! Приєднайтеся з версії, вказаної в описі світу");
         getConfig().set("messages.badVersion.ru_RU", "Неподдерживаемая версия! Присоединитесь с версии, указанной в описании мира");
@@ -273,6 +333,7 @@ public final class KannystraPluggins extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PvpWorlds(this), this);
         getServer().getPluginManager().registerEvents(new HubListeners(this), this);
         getServer().getPluginManager().registerEvents(new LoginJoinListener(this), this);
+        getCommand("netherpvp").setExecutor(new netherPvp(this));
         getCommand("pvp").setExecutor(new PvpWorldsCommand(this));
         getCommand("hub").setExecutor(new HubCommand(this));
         getCommand("feed").setExecutor(new FeedCommand(this));

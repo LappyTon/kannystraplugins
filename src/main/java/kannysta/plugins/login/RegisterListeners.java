@@ -33,14 +33,14 @@ public class RegisterListeners implements Listener {
         String lang = plugin.getConfig().getString("lang." + player.getName());
 
         if (lang == null || lang.isEmpty()) {
-            tabChange.RegisterTabChange(player, 1);
+            tabChange.registerTabChange(player, 20);
             langChoosingPlayers.put(player.getUniqueId().toString(), true);
             player.sendMessage(utils.event("Choose language"));
             player.sendMessage(utils.info("Type /language, /мова, /язык"));
         } else {
             if (password == null || password.isEmpty()) {
                 registeringPlayers.put(player.getUniqueId().toString(), true);
-                tabChange.RegisterTabChange(player, 1);
+                tabChange.registerTabChange(player, 20);
                 player.sendMessage(utils.event(plugin.getConfig().getString("messages.register." + lang, "Please register")));
             }
         }

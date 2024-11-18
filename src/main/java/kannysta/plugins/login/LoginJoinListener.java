@@ -51,7 +51,7 @@ public class LoginJoinListener implements Listener {
                     player.teleport(loginLocation);
                     player.sendMessage(utils.event(plugin.getConfig().getString("messages.loginPlease."+plugin.getConfig().getString("lang."+player.getName()))));
                     player.sendMessage(utils.info(plugin.getConfig().getString("messages.howToLogin."+plugin.getConfig().getString("lang."+player.getName()))));
-                    tabChange.LoginTabChange(player);
+                    tabChange.loginTabChange(player, 20);
                     loggingInPlayers.add(playerName);
                 } else {
                     player.sendMessage(utils.issue("Login location not set. Please contact an administrator."));

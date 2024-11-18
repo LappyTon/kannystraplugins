@@ -1,5 +1,8 @@
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/KannystraPluggins.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/Utils.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/customize/CustomGuiListener.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/customize/CustomizeCommand.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/customize/CustomizeGui.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/language/LanguageCommand.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/littlecommands/FeedCommand.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/littlecommands/HubCommand.java
@@ -16,3 +19,4 @@
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/PvpWorldsCommand.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/WorldsCommand.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/WorldsInventoryListener.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/commands/netherPvp.java
