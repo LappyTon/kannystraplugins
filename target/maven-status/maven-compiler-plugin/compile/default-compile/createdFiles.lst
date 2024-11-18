@@ -4,8 +4,8 @@ kannysta/plugins/littlecommands/HubCommand.class
 kannysta/plugins/logics/RtpLogic.class
 kannysta/plugins/worlds/PvpWorldsCommand.class
 kannysta/plugins/worlds/WorldsCommand.class
-kannysta/plugins/customize/CustomGuiListener.class
 kannysta/plugins/customize/CustomGuiListener$1.class
+kannysta/plugins/customize/CustomGuiListener.class
 kannysta/plugins/login/LoginJoinListener.class
 kannysta/plugins/mainMenu/MenuInventory.class
 kannysta/plugins/tab/TabChange.class

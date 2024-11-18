@@ -1,5 +1,7 @@
 package kannysta.plugins;
 
+import kannysta.plugins.customize.CustomGuiListener;
+import kannysta.plugins.customize.CustomizeCommand;
 import kannysta.plugins.language.LanguageCommand;
 import kannysta.plugins.littlecommands.FeedCommand;
 import kannysta.plugins.littlecommands.HubCommand;
@@ -330,10 +332,12 @@ public final class KannystraPluggins extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerLeaveListener(this), this);
         getServer().getPluginManager().registerEvents(new WorldsInventoryListener(this), this);
         getServer().getPluginManager().registerEvents(new RegisterListeners(this), this);
+        getServer().getPluginManager().registerEvents(new CustomGuiListener(this), this);
         getServer().getPluginManager().registerEvents(new PvpWorlds(this), this);
         getServer().getPluginManager().registerEvents(new HubListeners(this), this);
         getServer().getPluginManager().registerEvents(new LoginJoinListener(this), this);
         getCommand("netherpvp").setExecutor(new netherPvp(this));
+        getCommand("customize").setExecutor(new CustomizeCommand(this));
         getCommand("pvp").setExecutor(new PvpWorldsCommand(this));
         getCommand("hub").setExecutor(new HubCommand(this));
         getCommand("feed").setExecutor(new FeedCommand(this));
