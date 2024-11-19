@@ -1,6 +1,7 @@
 package kannysta.plugins.customize;
 
 import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.Inventory;
@@ -16,7 +17,10 @@ public class CustomGuiListener implements Listener {
     public CustomGuiListener(KannystraPluggins pluggins) {
         this.pluggins = pluggins;
         this.utils = new Utils(pluggins);
+        this.customizeGui = new CustomizeGui(pluggins);
     }
+
+    @EventHandler
     public void onMainCustomInv(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         Inventory inventory = customizeGui.customizeInventory(p);
@@ -31,6 +35,7 @@ public class CustomGuiListener implements Listener {
             }
         }
     }
+    @EventHandler
     public void onChatCustomInv(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
         Inventory inv = customizeGui.customizeChatInventory(p);

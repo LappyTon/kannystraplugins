@@ -30,8 +30,8 @@ public class CustomizeGui {
     }
 
     public Inventory customizeInventory(Player p) {
-        Inventory inv = Bukkit.createInventory(p, 54);
-        inv.setItem(0, utils.createItem(Material.WRITABLE_BOOK, "chatConfig"));
+        Inventory inv = Bukkit.createInventory(p, 54, "");
+        inv.setItem(0, utils.createItem(Material.WRITABLE_BOOK, ChatColor.BOLD+utils.messages(p, "chatConfig")));
         return inv;
     }
 
@@ -46,43 +46,45 @@ public class CustomizeGui {
         // Monochrome
         ItemStack monochrome;
         if (pluggins.getConfig().getBoolean("customize.chat.monochrome")) {
-            monochrome = utils.createItem(Material.INK_SAC, "monochrome", enabled);
+            monochrome = utils.createItem(Material.INK_SAC, utils.messages(p, "monochrome"), enabled);
             if (version > 400) {
                 monochrome.addEnchantment(Enchantment.MENDING, 1);
             }
         } else {
-            monochrome = utils.createItem(Material.INK_SAC, "monochrome", disabled);
+            monochrome = utils.createItem(Material.INK_SAC, utils.messages(p, "monochrome"), disabled);
         }
 
         // Newbie Tips
         ItemStack newbieTips;
         if (pluggins.getConfig().getBoolean("customize.chat.newbieTips")) {
-            newbieTips = utils.createItem(Material.BELL, "newbieTips", enabled);
+            newbieTips = utils.createItem(Material.BELL, utils.messages(p, "newbieTips"), enabled);
             if (version > 400) {
                 newbieTips.addEnchantment(Enchantment.MENDING, 1);
             }
         } else {
-            newbieTips = utils.createItem(Material.BELL, "newbieTips", disabled);
+            newbieTips = utils.createItem(Material.BELL, utils.messages(p, "newbieTips"), disabled);
         }
 
         // Language
         ItemStack language;
-        switch (pluggins.getConfig().getString("customize.chat.language")) {
+        String chatLang = pluggins.getConfig().getString("customize.chat.language");
+        if (chatLang == null) { chatLang=""; }
+        switch (chatLang) {
             case "ua":
-                language = utils.createItem(Material.BLUE_BANNER, "chatLang_ua");
+                language = utils.createItem(Material.BLUE_BANNER, utils.messages(p,"chatLang_ua"));
                 BannerMeta uaBannerMeta = (BannerMeta) language.getItemMeta();
                 uaBannerMeta.addPattern(new Pattern(DyeColor.YELLOW, PatternType.HALF_HORIZONTAL_BOTTOM));
                 language.setItemMeta(uaBannerMeta);
                 break;
             case "ru":
-                language = utils.createItem(Material.BLUE_BANNER, "chatLang_ru");
+                language = utils.createItem(Material.BLUE_BANNER, utils.messages(p, "chatLang_ru"));
                 BannerMeta ruBannerMeta = (BannerMeta) language.getItemMeta();
                 ruBannerMeta.addPattern(new Pattern(DyeColor.RED, PatternType.STRIPE_BOTTOM));
                 ruBannerMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.STRIPE_TOP));
                 language.setItemMeta(ruBannerMeta);
                 break;
             default:
-                language = utils.createItem(Material.RED_BANNER, "chatLang_eng");
+                language = utils.createItem(Material.RED_BANNER, utils.messages(p, "chatLang_eng"));
                 BannerMeta bannerMeta = (BannerMeta) language.getItemMeta();
                 bannerMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.SMALL_STRIPES));
                 bannerMeta.addPattern(new Pattern(DyeColor.BLUE, PatternType.SQUARE_TOP_LEFT));
@@ -92,24 +94,26 @@ public class CustomizeGui {
 
         // Global Chat
         ItemStack globalChat;
-        switch (pluggins.getConfig().getString("customize.chat.globalchat")) {
+        String globalChatConfig = pluggins.getConfig().getString("customize.chat.globalchat");
+        if (globalChatConfig==null) { globalChatConfig = ""; }
+        switch (globalChatConfig) {
             case "global":
-                globalChat = utils.createItem(Material.ENDER_PEARL, "globalChat");
+                globalChat = utils.createItem(Material.ENDER_PEARL, utils.messages(p, "globalChat"));
                 break;
             case "clan":
-                globalChat = utils.createItem(Material.ENDER_EYE, "clanChat");
+                globalChat = utils.createItem(Material.ENDER_EYE, utils.messages(p, "clanChat"));
                 break;
             case "none":
-                globalChat = utils.createItem(Material.BARRIER, "noChat");
+                globalChat = utils.createItem(Material.BARRIER, utils.messages(p, "noChat"));
                 break;
             default:
-                globalChat = utils.createItem(Material.MAP, "worldChat");
+                globalChat = utils.createItem(Material.MAP, utils.messages(p, "worldChat"));
                 break;
         }
 
         // Set Items
         inv.setItem(0, monochrome);
-        inv.setItem(1, utils.createItem(Material.FEATHER, "playersPrefix"));
+        inv.setItem(1, utils.createItem(Material.FEATHER, utils.messages(p, "playersPrefix")));
         inv.setItem(2, newbieTips);
         inv.setItem(3, language);
         inv.setItem(4, globalChat);
