@@ -18,6 +18,8 @@ import kannysta.plugins.worlds.WorldsInventoryListener;
 import kannysta.plugins.worlds.commands.netherPvp;
 
 import org.bukkit.Location;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerJoinEvent;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class KannystraPluggins extends JavaPlugin {
@@ -35,6 +37,61 @@ public final class KannystraPluggins extends JavaPlugin {
         // getConfig().set("messages..en_US", "");
         // getConfig().set("messages..uk_UA", "");
         // getConfig().set("messages..ru_RU", "");
+
+        getConfig().set("messages.prefix_clan.en_US", "Clan Name");
+        getConfig().set("messages.prefix_clan.uk_UA", "Назва клану");
+        getConfig().set("messages.prefix_clan.ru_RU", "Название клана");
+        getConfig().set("messages.prefix_clanLore.en_US", "The prefix shows the name of the clan the player is in");
+        getConfig().set("messages.prefix_clanLore.uk_UA", "Префікс показує назву клана в якому перебуває гравецьi");
+        getConfig().set("messages.prefix_clanLore.ru_RU", "Префикс показывает название клана, в котором находится игрок");
+
+        getConfig().set("messages.prefix_claimedMoney.en_US", "Claimed Money");
+        getConfig().set("messages.prefix_claimedMoney.uk_UA", "Отримані гроші");
+        getConfig().set("messages.prefix_claimedMoney.ru_RU", "Полученные деньги");
+        getConfig().set("messages.prefix_claimedMoneyLore.en_US", "Money the player has received from the auction over time");
+        getConfig().set("messages.prefix_claimedMoneyLore.uk_UA", "Гроші, які гравець отримав з аукціону за весь час");
+        getConfig().set("messages.prefix_claimedMoneyLore.ru_RU", "Деньги, которые игрок получил с аукциона за всё время");
+
+        getConfig().set("messages.prefix_money.en_US", "Player Balance");
+        getConfig().set("messages.prefix_money.uk_UA", "Баланс гравця");
+        getConfig().set("messages.prefix_money.ru_RU", "Баланс игрока");
+        getConfig().set("messages.prefix_moneyLore.en_US", "The prefix shows the player's current balance");
+        getConfig().set("messages.prefix_moneyLore.uk_UA", "Префікс показує баланс гравця в даний момент");
+        getConfig().set("messages.prefix_moneyLore.ru_RU", "Префикс показывает текущий баланс игрока");
+
+        getConfig().set("messages.prefix_playtime.en_US", "Time on Server");
+        getConfig().set("messages.prefix_playtime.uk_UA", "Час на сервері");
+        getConfig().set("messages.prefix_playtime.ru_RU", "Время на сервере");
+        getConfig().set("messages.prefix_playtimeLore.en_US", "Shows time spent on the server across all resets");
+        getConfig().set("messages.prefix_playtimeLore.uk_UA", "Показує час проведений на сервері за всі вайпи");
+        getConfig().set("messages.prefix_playtimeLore.ru_RU", "Показывает время, проведённое на сервере за все вайпы");
+
+        getConfig().set("messages.prefix_kills.en_US", "Kills in World");
+        getConfig().set("messages.prefix_kills.uk_UA", "Вбивства на світі");
+        getConfig().set("messages.prefix_kills.ru_RU", "Убийства в мире");
+        getConfig().set("messages.prefix_killsLore.en_US", "Kills made in the world where the message was sent");
+        getConfig().set("messages.prefix_killsLore.uk_UA", "Вбивства, скоєні в світі де надіслано повідомлення");
+        getConfig().set("messages.prefix_killsLore.ru_RU", "Убийства, совершённые в мире, где было отправлено сообщение");
+
+        getConfig().set("messages.prefix_kills2Lore.en_US", "If PvP is disabled in the world, shows kills across all worlds");
+        getConfig().set("messages.prefix_kills2Lore.uk_UA", "Якщо в світі виключене пвп, показуються вбивства по всіх світах");
+        getConfig().set("messages.prefix_kills2Lore.ru_RU", "Если в мире отключено PvP, показываются убийства по всем мирам");
+
+        getConfig().set("messages.prefix_kd.en_US", "Kills / Deaths");
+        getConfig().set("messages.prefix_kd.uk_UA", "Вбивства / Смерті");
+        getConfig().set("messages.prefix_kd.ru_RU", "Убийства / Смерти");
+        getConfig().set("messages.prefix_kdLore.en_US", "The prefix shows total kills and deaths across all worlds");
+        getConfig().set("messages.prefix_kdLore.uk_UA", "Префікс показує загальні вбивства і смерті по всіх світах");
+        getConfig().set("messages.prefix_kdLore.ru_RU", "Префикс показывает общее количество убийств и смертей по всем мирам");
+
+        getConfig().set("messages.prefix_none.en_US", "Do not show prefix");
+        getConfig().set("messages.prefix_none.uk_UA", "Не показувати префікс");
+        getConfig().set("messages.prefix_none.ru_RU", "Не показывать префикс");
+        getConfig().set("messages.prefix_noneLore.en_US", "The prefix will be removed. Example:");
+        getConfig().set("messages.prefix_noneLore.uk_UA", "Префікс буде видалено. Приклад:");
+        getConfig().set("messages.prefix_noneLore.ru_RU", "Префикс будет удалён. Пример:");
+
+
         getConfig().set("messages.enabled.en_US", "ENABLED");
         getConfig().set("messages.enabled.uk_UA", "УВІМКНЕНО");
         getConfig().set("messages.enabled.ru_RU", "ВКЛЮЧЕНО");
@@ -70,6 +127,18 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("messages.chatLang_ua.en_US", "Global chat language: Ukrainian");
         getConfig().set("messages.chatLang_ua.uk_UA", "Мова глобального чату: Українська");
         getConfig().set("messages.chatLang_ua.ru_RU", "Язык глобального чата: Украинский");
+
+        getConfig().set("messages.chatLangChange_eng.en_US", "&7Change language to: &fUkrainian");
+        getConfig().set("messages.chatLangChange_eng.uk_UA", "&7Змінити мову на: &fАнглійську");
+        getConfig().set("messages.chatLangChange_eng.ru_RU", "&7Change language to: &fRussian");
+        
+        getConfig().set("messages.chatLangChange_ru.en_US", "&7Change language to: &fUkrainian");
+        getConfig().set("messages.chatLangChange_ru.uk_UA", "&7Змінити мову на: &fУкраїнську");
+        getConfig().set("messages.chatLangChange_ru.ru_RU", "&7Change language to: &fEnglish");
+        
+        getConfig().set("messages.chatLangChange_ua.en_US", "&7Change language to: &fRussian");
+        getConfig().set("messages.chatLangChange_ua.uk_UA", "&7Змінити мову на: &fРосійську");
+        getConfig().set("messages.chatLangChange_ua.ru_RU", "&7Change language to: &fUkrainian");
         
         getConfig().set("messages.newbieTips.en_US", "Newbie tips:");
         getConfig().set("messages.newbieTips.uk_UA", "Поради для новачків:");
@@ -358,6 +427,7 @@ public final class KannystraPluggins extends JavaPlugin {
         saveConfig();
         saveDefaultConfig();
 
+
     }
 //        Get utils
 
@@ -365,5 +435,7 @@ public final class KannystraPluggins extends JavaPlugin {
     @Override
     public void onDisable() {
         // Plugin shutdown logic
+        saveConfig();
+        saveDefaultConfig();
     }
 }
