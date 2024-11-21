@@ -108,11 +108,11 @@ public class CustomizeGui {
         }
 
         // Set Items
-        inv.setItem(0, monochrome);
-        inv.setItem(1, utils.createItem(Material.FEATHER, ChatColor.BOLD+""+ChatColor.WHITE+utils.messages(p, "playersPrefix")));
-        inv.setItem(2, newbieTips);
-        inv.setItem(3, language);
-        inv.setItem(4, globalChat);
+        inv.setItem(20, monochrome);
+        inv.setItem(21, utils.createItem(Material.FEATHER, ChatColor.BOLD+""+ChatColor.WHITE+utils.messages(p, "playersPrefix")));
+        inv.setItem(22, newbieTips);
+        inv.setItem(23, language);
+        inv.setItem(24, globalChat);
 
         return inv;
     }
@@ -144,6 +144,11 @@ public class CustomizeGui {
         if (link=="kills") {
             exclusion = exclusion+utils.messages(p, "prefix_kills2Lore");
         }
+        if (material==Material.BARRIER) {
+            if (currentPrefix==""||currentPrefix==null) {
+                currentPrefix = link;
+            }
+        }
         if (currentPrefix==link) {
             item = utils.createItem(material, ChatColor.GREEN+utils.messages(p, "enabled"),
             Arrays.asList(
@@ -166,13 +171,27 @@ public class CustomizeGui {
 
     public Inventory chatLanguageInventory(Player p) {
         Inventory inv = Bukkit.createInventory(p, 45, " ");
+        String currentLang = config.getString("customize.chat.language."+p.getUniqueId(), "");
+        String DISABLED = ChatColor.RED+utils.messages(p, "disabled");
+        String ENABLED = ChatColor.GREEN+utils.messages(p, "enabled");
+        String uaString = DISABLED;
+        String ruString = DISABLED;
+        String engString = DISABLED;
+        switch (currentLang) {
+            case "ua":
+                uaString = ENABLED;
+                break;
+            case "ru":
+                ruString = ENABLED;
+                break;
+            default:
+                engString = ENABLED;
+                break;
+        }
 
-        List<String> disabled = Arrays.asList(ChatColor.RED + "" + ChatColor.BOLD + utils.messages(p, "disabled"));
-        List<String> enabled = Arrays.asList(ChatColor.GREEN + "" + ChatColor.BOLD + utils.messages(p, "enabled"));
-
-        ItemStack ua = utils.createItem(Material.BLUE_BANNER, ChatColor.BOLD+ChatColor.translateAlternateColorCodes('&', utils.messages(p,"chatLangChange_ua")));
-        ItemStack ru = utils.createItem(Material.BLUE_BANNER, ChatColor.BOLD+ChatColor.translateAlternateColorCodes('&', utils.messages(p,"chatLangChange_ru")));
-        ItemStack eng = utils.createItem(Material.RED_BANNER, ChatColor.BOLD+ChatColor.translateAlternateColorCodes('&', utils.messages(p,"chatLangChange_eng")));
+        ItemStack ua = utils.createItem(Material.BLUE_BANNER, uaString);
+        ItemStack ru = utils.createItem(Material.BLUE_BANNER, ruString);
+        ItemStack eng = utils.createItem(Material.RED_BANNER, engString);
         BannerMeta uaBannerMeta = (BannerMeta) ua.getItemMeta();
         BannerMeta ruBannerMeta = (BannerMeta) ru.getItemMeta();
         BannerMeta engBannerMeta = (BannerMeta) eng.getItemMeta();
@@ -181,33 +200,30 @@ public class CustomizeGui {
         ruBannerMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.STRIPE_TOP));
         engBannerMeta.addPattern(new Pattern(DyeColor.WHITE, PatternType.SMALL_STRIPES));
         engBannerMeta.addPattern(new Pattern(DyeColor.BLUE, PatternType.SQUARE_TOP_LEFT));
+
+
+        uaBannerMeta.setLore(Arrays.asList(ChatColor.BOLD+ChatColor.translateAlternateColorCodes('&', utils.messages(p,"chatLangChange_ua"))));
+        ruBannerMeta.setLore(Arrays.asList(ChatColor.BOLD+ChatColor.translateAlternateColorCodes('&', utils.messages(p,"chatLangChange_ru"))));
+        engBannerMeta.setLore(Arrays.asList(ChatColor.BOLD+ChatColor.translateAlternateColorCodes('&', utils.messages(p,"chatLangChange_eng"))));
+
         ua.setItemMeta(uaBannerMeta);
         ru.setItemMeta(ruBannerMeta);
         eng.setItemMeta(engBannerMeta);
 
-        String currentLang = config.getString("customize.chat.language."+p.getUniqueId(), "");
 
-        ua.getItemMeta().setLore(disabled);
-        ru.getItemMeta().setLore(disabled);
-        eng.getItemMeta().setLore(disabled);
-        switch (currentLang) {
-            case "ua":
-                ua.getItemMeta().setLore(enabled);
-                break;
-            case "ru":
-                ru.getItemMeta().setLore(enabled);
-                break;
-            case "eng":
-                eng.getItemMeta().setLore(enabled);
-                break;
-            default:
-                break;
-        }
-        
-        inv.setItem(0, ua);
-        inv.setItem(1, ru);
-        inv.setItem(2, eng);
-        
+        inv.setItem(20, eng);
+        inv.setItem(22, ru);
+        inv.setItem(24, ua);
         return inv;
     }
+
+
+    public Inventory customizeTabInventory(Player p) {
+        Inventory inv = Bukkit.createInventory(p, 45);
+        return inv;
+    }
+    
+
+
+
 }

@@ -100,18 +100,39 @@ public class CustomGuiListener implements Listener {
         }
     }
 
-    private void handleChatInventoryClick(Player player, ItemStack clickedItem, Inventory chatInventory) {
-        if (clickedItem.isSimilar(chatInventory.getItem(0))) {
-            toggleConfigBoolean("customize.chat.monochrome." + player.getUniqueId());
-            player.openInventory(customizeGui.customizeChatInventory(player));
-        } else if (clickedItem.isSimilar(chatInventory.getItem(1))) {
-            player.openInventory(customizeGui.prefixesInventory(player));
-        } else if (clickedItem.isSimilar(chatInventory.getItem(2))) {
-            toggleConfigBoolean("customize.chat.newbieTips." + player.getUniqueId());
-            player.openInventory(customizeGui.customizeChatInventory(player));
-        } else if (clickedItem.isSimilar(chatInventory.getItem(3))) {
-            player.openInventory(customizeGui.chatLanguageInventory(player));
+    private void handleChatInventoryClick(Player p, ItemStack clickedItem, Inventory chatInventory) {
+        if (clickedItem.isSimilar(chatInventory.getItem(20))) {
+            toggleConfigBoolean("customize.chat.monochrome." + p.getUniqueId());
+            p.openInventory(customizeGui.customizeChatInventory(p));
+        } else if (clickedItem.isSimilar(chatInventory.getItem(21))) {
+            p.openInventory(customizeGui.prefixesInventory(p));
+        } else if (clickedItem.isSimilar(chatInventory.getItem(22))) {
+            toggleConfigBoolean("customize.chat.newbieTips." + p.getUniqueId());
+            p.openInventory(customizeGui.customizeChatInventory(p));
+        } else if (clickedItem.isSimilar(chatInventory.getItem(23))) {
+            p.openInventory(customizeGui.chatLanguageInventory(p));
+        } else if (clickedItem.isSimilar(chatInventory.getItem(24))) {
+            switch (clickedItem.getType()) {
+                case ENDER_PEARL:
+                    chatToggle(p, "clan");
+                    break;
+                case ENDER_EYE:
+                    chatToggle(p, "none");
+                    break;
+                case BARRIER:
+                    chatToggle(p, "local");
+                    break;
+                case MAP:
+                    chatToggle(p, "global");
+                default:
+                    break;
+            }
         }
+    }
+    private void chatToggle(Player p, String value) {
+        config.set("customize.chat.globalchat."+p.getUniqueId(), value);
+        plugin.saveConfig(); plugin.saveDefaultConfig();
+        p.openInventory(customizeGui.customizeChatInventory(p));
     }
 
     private void handlePrefixInventoryClick(Player player, ItemStack clickedItem, Inventory prefixInventory) {
@@ -131,12 +152,12 @@ public class CustomGuiListener implements Listener {
     }
 
     private void handleChatLangInv(Player p, ItemStack clickedItem, Inventory inv) {
-        if (clickedItem.isSimilar(inv.getItem(0))) {
-            changeLang(p, "ua");
-        } else if (clickedItem.isSimilar(inv.getItem(1))) {
-            changeLang(p, "ru");
-        } else if (clickedItem.isSimilar(inv.getItem(2))) {
+        if (clickedItem.isSimilar(inv.getItem(20))) {
             changeLang(p, "eng");
+        } else if (clickedItem.isSimilar(inv.getItem(22))) {
+            changeLang(p, "ru");
+        } else if (clickedItem.isSimilar(inv.getItem(24))) {
+            changeLang(p, "ua");
         }
     }
 
@@ -148,9 +169,11 @@ public class CustomGuiListener implements Listener {
     private void changePrefix(Player player, String prefix) {
         config.set("customize.chat.prefix." + player.getUniqueId(), prefix);
         player.openInventory(customizeGui.prefixesInventory(player));
+        plugin.saveConfig(); plugin.saveDefaultConfig();
     }
     private void changeLang(Player p, String lang) {
         config.set("customize.chat.language." + p.getUniqueId(), lang);
         p.openInventory(customizeGui.chatLanguageInventory(p));
+        plugin.saveConfig(); plugin.saveDefaultConfig();
     } 
 }

@@ -28,25 +28,25 @@ public class TabChange {
     }
 
     public void loginTabChange(Player player, int seconds) {
-        String locale = config.getString("lang." + player.getName(), "en");
-        String header = ChatColor.WHITE + "" + ChatColor.BOLD + "ip: mc.Kannystra.com";
-        String footer = ChatColor.GRAY + config.getString("translate.name." + locale, "Name: ") + player.getName() + "\n\n" +
-                ChatColor.RED + config.getString("translate.youNeedToLogin." + locale, "You need to log in!") + "\n" +
-                ChatColor.DARK_GREEN + config.getString("translate.openChatAndEnterPassword." + locale, "Open chat (T) and enter your password.");
+        // String locale = config.getString("lang." + player.getName(), "en");
+        // String header = ChatColor.WHITE + "" + ChatColor.BOLD + "ip: mc.Kannystra.com";
+        // String footer = ChatColor.GRAY + config.getString("translate.name." + locale, "Name: ") + player.getName() + "\n\n" +
+        //         ChatColor.RED + config.getString("translate.youNeedToLogin." + locale, "You need to log in!") + "\n" +
+        //         ChatColor.DARK_GREEN + config.getString("translate.openChatAndEnterPassword." + locale, "Open chat (T) and enter your password.");
 
-        new BukkitRunnable() {
-            private int remainingSeconds = seconds;
+        // new BukkitRunnable() {
+        //     private int remainingSeconds = seconds;
 
-            @Override
-            public void run() {
-                if (remainingSeconds > 0) {
-                    player.setPlayerListHeaderFooter(header, footer);
-                    remainingSeconds--;
-                } else {
-                    player.kickPlayer(utils.messages(player, "loginTimePassed"));
-                    cancel();
-                }
-            }
-        }.runTaskTimer(plugin, 0, 20);
+        //     @Override
+        //     public void run() {
+        //         if (remainingSeconds > 0) {
+        //             player.setPlayerListHeaderFooter(header, footer);
+        //             remainingSeconds--;
+        //         } else {
+        //             player.kickPlayer(utils.messages(player, "loginTimePassed"));
+        //             cancel();
+        //         }
+        //     }
+        // }.runTaskTimer(plugin, 0, 20);
     }
 }

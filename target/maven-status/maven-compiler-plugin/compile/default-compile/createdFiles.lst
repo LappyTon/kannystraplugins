@@ -19,7 +19,6 @@ kannysta/plugins/littlecommands/FeedCommand.class
 kannysta/plugins/customize/CustomizeGui.class
 kannysta/plugins/login/RegisterListeners.class
 kannysta/plugins/littlecommands/RtpCommand.class
-kannysta/plugins/tab/TabChange$1.class
 kannysta/plugins/Utils.class
 kannysta/plugins/worlds/PvpWorlds.class
 kannysta/plugins/worlds/WorldsInventoryListener$1.class
