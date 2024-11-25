@@ -52,3 +52,7 @@ commands:
       - настройки
       - кастомізація
       - налаштування
+  guichecker:
+    aliases:
+      - GuiChecker
+      - GUICHECKER

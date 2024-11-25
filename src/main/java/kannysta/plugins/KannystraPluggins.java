@@ -4,6 +4,8 @@ import kannysta.plugins.customize.CustomGuiListener;
 import kannysta.plugins.customize.CustomizeCommand;
 import kannysta.plugins.language.LanguageCommand;
 import kannysta.plugins.littlecommands.FeedCommand;
+import kannysta.plugins.littlecommands.GuiChecker;
+import kannysta.plugins.littlecommands.GuiCheckerListener;
 import kannysta.plugins.littlecommands.HubCommand;
 import kannysta.plugins.littlecommands.RtpCommand;
 import kannysta.plugins.login.LoginJoinListener;
@@ -12,9 +14,9 @@ import kannysta.plugins.login.RegisterListeners;
 import kannysta.plugins.mainMenu.MainMenuCommand;
 import kannysta.plugins.worlds.HubListeners;
 import kannysta.plugins.worlds.PvpWorlds;
-import kannysta.plugins.worlds.PvpWorldsCommand;
-import kannysta.plugins.worlds.WorldsCommand;
 import kannysta.plugins.worlds.WorldsInventoryListener;
+import kannysta.plugins.worlds.commands.PvpWorldsCommand;
+import kannysta.plugins.worlds.commands.WorldsCommand;
 import kannysta.plugins.worlds.commands.netherPvp;
 
 import org.bukkit.Location;
@@ -38,6 +40,43 @@ public final class KannystraPluggins extends JavaPlugin {
         // getConfig().set("messages..uk_UA", "");
         // getConfig().set("messages..ru_RU", "");
 
+
+        getConfig().set("messages.tabConfig.en_US", "Tab configuration");
+        getConfig().set("messages.tabConfig.uk_UA", "Конфігурація табу");
+        getConfig().set("messages.tabConfig.ru_RU", "Конфигурация таба");
+        
+        getConfig().set("messages.tabItem_lobby.en_US", "Change tab for lobby");
+        getConfig().set("messages.tabItem_lobby.uk_UA", "Змінити таб для лобі");
+        getConfig().set("messages.tabItem_lobby.ru_RU", "Изменить таб для лобби");
+        
+        getConfig().set("messages.tabItem_pveWorld.en_US", "Change tab for pve worlds");
+        getConfig().set("messages.tabItem_pveWorld.uk_UA", "Змінити таб для PvE-світів");
+        getConfig().set("messages.tabItem_pveWorld.ru_RU", "Изменить таб для PvE-миров");
+        
+        getConfig().set("messages.tabItem_pvpWorld.en_US", "Change tab for pvp worlds");
+        getConfig().set("messages.tabItem_pvpWorld.uk_UA", "Змінити таб для PvP-світів");
+        getConfig().set("messages.tabItem_pvpWorld.ru_RU", "Изменить таб для PvP-миров");
+        
+        getConfig().set("messages.tabItem_pvp.en_US", "Change tab in pvp mode");
+        getConfig().set("messages.tabItem_pvp.uk_UA", "Змінити таб в режимі PvP");
+        getConfig().set("messages.tabItem_pvp.ru_RU", "Изменить таб в режиме PvP");
+        
+        getConfig().set("messages.tabItem_minigamesWorld.en_US", "Change tab for minigame worlds");
+        getConfig().set("messages.tabItem_minigamesWorld.uk_UA", "Змінити таб для світів з мінііграми");
+        getConfig().set("messages.tabItem_minigamesWorld.ru_RU", "Изменить таб для миров с мини-играми");
+        
+        getConfig().set("messages.tabItem_minigame.en_US", "Change tab in minigame");
+        getConfig().set("messages.tabItem_minigame.uk_UA", "Змінити таб в мінігрі");
+        getConfig().set("messages.tabItem_minigame.ru_RU", "Изменить таб в мини-игре");
+        
+        getConfig().set("messages.tabItem_style.en_US", "Change tab style");
+        getConfig().set("messages.tabItem_style.uk_UA", "Змінити стиль табу");
+        getConfig().set("messages.tabItem_style.ru_RU", "Изменить стиль таба");
+        
+        getConfig().set("messages.tabItem_colors.en_US", "Change tab color");
+        getConfig().set("messages.tabItem_colors.uk_UA", "Змінити колір табу");
+        getConfig().set("messages.tabItem_colors.ru_RU", "Изменить цвет таба");
+        
         getConfig().set("messages.prefix_clan.en_US", "Clan Name");
         getConfig().set("messages.prefix_clan.uk_UA", "Назва клану");
         getConfig().set("messages.prefix_clan.ru_RU", "Название клана");
@@ -207,7 +246,6 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("messages.classicDuel.en_US", "Classic duel");
         getConfig().set("messages.classicDuel.uk_UA", "Класична дуель");
         getConfig().set("messages.classicDuel.ru_RU", "Классическая дуэль");
-
 
         getConfig().set("messages.serverIpAddress.en_US", "ip: mc.Kannystra.com");
         getConfig().set("messages.serverIpAddress.uk_UA", "ip: mc.Kannystra.com");
@@ -404,8 +442,10 @@ public final class KannystraPluggins extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new CustomGuiListener(this), this);
         getServer().getPluginManager().registerEvents(new PvpWorlds(this), this);
         getServer().getPluginManager().registerEvents(new HubListeners(this), this);
+        getServer().getPluginManager().registerEvents(new GuiCheckerListener(this), this);
         getServer().getPluginManager().registerEvents(new LoginJoinListener(this), this);
         getCommand("netherpvp").setExecutor(new netherPvp(this));
+        getCommand("guichecker").setExecutor(new GuiChecker());
         getCommand("customize").setExecutor(new CustomizeCommand(this));
         getCommand("pvp").setExecutor(new PvpWorldsCommand(this));
         getCommand("hub").setExecutor(new HubCommand(this));

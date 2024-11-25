@@ -2,10 +2,10 @@ kannysta/plugins/mainMenu/MainMenuCommand.class
 kannysta/plugins/worlds/HubListeners.class
 kannysta/plugins/littlecommands/HubCommand.class
 kannysta/plugins/logics/RtpLogic.class
-kannysta/plugins/worlds/PvpWorldsCommand.class
-kannysta/plugins/worlds/WorldsCommand.class
-kannysta/plugins/customize/CustomGuiListener$1.class
+kannysta/plugins/worlds/commands/PvpWorldsCommand.class
+kannysta/plugins/worlds/commands/WorldsCommand.class
 kannysta/plugins/customize/CustomGuiListener.class
+kannysta/plugins/customize/CustomGuiListener$1.class
 kannysta/plugins/login/LoginJoinListener.class
 kannysta/plugins/mainMenu/MenuInventory.class
 kannysta/plugins/tab/TabChange.class
@@ -17,8 +17,10 @@ kannysta/plugins/customize/CustomizeCommand.class
 kannysta/plugins/language/LanguageCommand.class
 kannysta/plugins/littlecommands/FeedCommand.class
 kannysta/plugins/customize/CustomizeGui.class
+kannysta/plugins/littlecommands/GuiCheckerListener.class
 kannysta/plugins/login/RegisterListeners.class
 kannysta/plugins/littlecommands/RtpCommand.class
+kannysta/plugins/littlecommands/GuiChecker.class
 kannysta/plugins/Utils.class
 kannysta/plugins/worlds/PvpWorlds.class
 kannysta/plugins/worlds/WorldsInventoryListener$1.class

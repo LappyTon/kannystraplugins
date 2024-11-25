@@ -1,4 +1,4 @@
-package kannysta.plugins.worlds;
+package kannysta.plugins.worlds.commands;
 
 import kannysta.plugins.KannystraPluggins;
 import kannysta.plugins.mainMenu.MenuInventory;

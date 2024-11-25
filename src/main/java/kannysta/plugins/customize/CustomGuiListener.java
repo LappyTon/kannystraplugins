@@ -43,7 +43,8 @@ public class CustomGuiListener implements Listener {
 
             switch (clickedItem.getType()) {
                 case WRITABLE_BOOK -> player.openInventory(customizeGui.customizeChatInventory(player));
-                default -> {} // Handle other cases if needed
+                case MAP -> player.openInventory(customizeGui.customizeTabInventory(player));
+                default -> {} 
             }
         }
     }
@@ -97,6 +98,37 @@ public class CustomGuiListener implements Listener {
             if (item == null) return;
 
             handleChatLangInv(p, item, chatLangInventory);
+        }
+    }
+
+    @EventHandler
+    public void onTabCustomInv(InventoryClickEvent e) {
+        if (!(e.getWhoClicked() instanceof Player p)) return;
+        if (utils.areInventoriesEqual(e.getClickedInventory(), customizeGui.customizeTabInventory(p))) {
+            e.setCancelled(true);
+            ItemStack item = e.getCurrentItem();
+            if (item == null) return;
+
+            switch (item.getType()) {
+                case BELL:
+                    break;
+                case IRON_AXE:
+                    break;
+                case ENDER_PEARL:
+                    break;
+                case PAINTING:
+                    break;
+                case DIAMOND_PICKAXE:
+                    break;
+                case DIAMOND_SWORD:
+                    break;
+                case ENDER_EYE:
+                    break;
+                case YELLOW_DYE:
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
@@ -176,4 +208,5 @@ public class CustomGuiListener implements Listener {
         p.openInventory(customizeGui.chatLanguageInventory(p));
         plugin.saveConfig(); plugin.saveDefaultConfig();
     } 
+    
 }

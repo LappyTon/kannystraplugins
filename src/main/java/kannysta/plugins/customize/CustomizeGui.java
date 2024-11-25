@@ -35,6 +35,7 @@ public class CustomizeGui {
     public Inventory customizeInventory(Player p) {
         Inventory inv = Bukkit.createInventory(p, 54, " ");
         inv.setItem(0, utils.createItem(Material.WRITABLE_BOOK, ChatColor.BOLD+utils.messages(p, "chatConfig")));
+        inv.setItem(1, utils.createItem(Material.MAP, ChatColor.BOLD+utils.messages(p, "tabConfig")));
         return inv;
     }
 
@@ -219,11 +220,34 @@ public class CustomizeGui {
 
 
     public Inventory customizeTabInventory(Player p) {
-        Inventory inv = Bukkit.createInventory(p, 45);
+        Inventory inv = Bukkit.createInventory(p, 54);
+
+        inv.setItem(20, utils.createItem(Material.BELL, ChatColor.WHITE+utils.messages(p, "tabItem_lobby")));        
+        inv.setItem(29, utils.createItem(Material.DIAMOND_PICKAXE, ChatColor.GREEN+utils.messages(p, "tabItem_pveWorld")));        
+        inv.setItem(21, utils.createItem(Material.IRON_AXE, ChatColor.RED+utils.messages(p, "tabItem_pvpWorld")));        
+        inv.setItem(30, utils.createItem(Material.DIAMOND_SWORD, ChatColor.DARK_RED+utils.messages(p, "tabItem_pvp")));        
+        inv.setItem(22, utils.createItem(Material.ENDER_PEARL, ChatColor.GREEN+utils.messages(p, "tabItem_minigamesWorld")));        
+        inv.setItem(31, utils.createItem(Material.ENDER_EYE, ChatColor.DARK_GREEN+utils.messages(p, "tabItem_minigame")));    
+        inv.setItem(24, utils.createItem(Material.PAINTING, ChatColor.GREEN+utils.messages(p, "tabItem_style")));
+        inv.setItem(33, utils.createItem(Material.YELLOW_DYE, ChatColor.GREEN+utils.messages(p, "tabItem_colors")));
         return inv;
     }
-    
 
+    public Inventory customizeTab(Player p, String link) {
+        Inventory inv = Bukkit.createInventory(p, 54);
 
+        ItemStack clanPlayersOnline = new ItemStack(Material.BELL);
+        ItemStack playerSorting = new ItemStack(Material.BELL);
 
+        ItemStack balance = new ItemStack(Material.BELL);
+        ItemStack killStreak = new ItemStack(Material.BELL);
+        ItemStack name = new ItemStack(Material.BELL);
+        ItemStack ahItems = new ItemStack(Material.BELL);
+        ItemStack worldName = new ItemStack(Material.BELL);
+        ItemStack nextEvent = new ItemStack(Material.BELL);
+        ItemStack nextRestart = new ItemStack(Material.BELL);
+        ItemStack currentQuest = new ItemStack(Material.BELL);
+        
+        return inv;
+    }
 }
