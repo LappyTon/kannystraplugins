@@ -222,32 +222,59 @@ public class CustomizeGui {
     public Inventory customizeTabInventory(Player p) {
         Inventory inv = Bukkit.createInventory(p, 54);
 
-        inv.setItem(20, utils.createItem(Material.BELL, ChatColor.WHITE+utils.messages(p, "tabItem_lobby")));        
-        inv.setItem(29, utils.createItem(Material.DIAMOND_PICKAXE, ChatColor.GREEN+utils.messages(p, "tabItem_pveWorld")));        
-        inv.setItem(21, utils.createItem(Material.IRON_AXE, ChatColor.RED+utils.messages(p, "tabItem_pvpWorld")));        
-        inv.setItem(30, utils.createItem(Material.DIAMOND_SWORD, ChatColor.DARK_RED+utils.messages(p, "tabItem_pvp")));        
-        inv.setItem(22, utils.createItem(Material.ENDER_PEARL, ChatColor.GREEN+utils.messages(p, "tabItem_minigamesWorld")));        
-        inv.setItem(31, utils.createItem(Material.ENDER_EYE, ChatColor.DARK_GREEN+utils.messages(p, "tabItem_minigame")));    
-        inv.setItem(24, utils.createItem(Material.PAINTING, ChatColor.GREEN+utils.messages(p, "tabItem_style")));
-        inv.setItem(33, utils.createItem(Material.YELLOW_DYE, ChatColor.GREEN+utils.messages(p, "tabItem_colors")));
+        inv.setItem(20, utils.createItem(Material.BELL, ChatColor.WHITE+utils.messages(p, "tabItem.lobby")));        
+        inv.setItem(29, utils.createItem(Material.DIAMOND_PICKAXE, ChatColor.GREEN+utils.messages(p, "tabItem.pveWorld")));        
+        inv.setItem(21, utils.createItem(Material.IRON_AXE, ChatColor.RED+utils.messages(p, "tabItem.pvpWorld")));        
+        inv.setItem(30, utils.createItem(Material.DIAMOND_SWORD, ChatColor.DARK_RED+utils.messages(p, "tabItem.pvp")));        
+        inv.setItem(22, utils.createItem(Material.ENDER_PEARL, ChatColor.GREEN+utils.messages(p, "tabItem.minigamesWorld")));        
+        inv.setItem(31, utils.createItem(Material.ENDER_EYE, ChatColor.DARK_GREEN+utils.messages(p, "tabItem.minigame")));    
+        inv.setItem(24, utils.createItem(Material.PAINTING, ChatColor.WHITE+utils.messages(p, "tabItem.style")));
+        inv.setItem(33, utils.createItem(Material.YELLOW_DYE, ChatColor.WHITE+utils.messages(p, "tabItem.colors")));
         return inv;
     }
 
     public Inventory customizeTab(Player p, String link) {
         Inventory inv = Bukkit.createInventory(p, 54);
-
-        ItemStack clanPlayersOnline = new ItemStack(Material.BELL);
-        ItemStack playerSorting = new ItemStack(Material.BELL);
-
-        ItemStack balance = new ItemStack(Material.BELL);
-        ItemStack killStreak = new ItemStack(Material.BELL);
-        ItemStack name = new ItemStack(Material.BELL);
-        ItemStack ahItems = new ItemStack(Material.BELL);
-        ItemStack worldName = new ItemStack(Material.BELL);
-        ItemStack nextEvent = new ItemStack(Material.BELL);
-        ItemStack nextRestart = new ItemStack(Material.BELL);
-        ItemStack currentQuest = new ItemStack(Material.BELL);
-        
+        String tabLink = "customizeTab_" + link;
+    
+        addTabItem(inv, 28, Material.BELL, "tabItem.clanPlayersOnline", p, "clanPlayersOnline");
+        addTabItem(inv, 19, Material.COMPARATOR, "tabItem.playerSorting", p, "playerSorting");
+        addTabItem(inv, 40, Material.SUNFLOWER, "tabItem.balance", p, "balance");
+        addTabItem(inv, 41, Material.DIAMOND_AXE, "tabItem.killStreak", p, "killStreak");
+        addTabItem(inv, 13, Material.NAME_TAG, "tabItem.name", p, "name");
+        addTabItem(inv, 39, Material.AMETHYST_CLUSTER, "tabItem.ahItems", p, "ahItems");
+        addTabItem(inv, 14, Material.NAME_TAG, "tabItem.worldName", p, "worldName");
+    
+        if (link.equals("pvp") || link.equals("pvpWorld")) {
+            addTabItem(inv, 25, Material.RECOVERY_COMPASS, utils.messages(p, "tabItem.nextEvent"), p, "nextEvent");
+        } else inv.setItem(25, utils.createItem(Material.BARRIER, ChatColor.RED+utils.messages(p, "tabItem.nextEventInaccessible")));
+    
+        addTabItem(inv, 34, Material.CLOCK, "tabItem.nextRestart", p, "nextRestart");
+    
+        String quest = config.getString(tabLink + ".currentQuest", "");
+        ItemStack currentQuest;
+        switch (quest) {
+            case "pve" -> currentQuest = utils.createItem(Material.WHEAT_SEEDS, ChatColor.GREEN + utils.messages(p, "currentQuest.pve"));
+            case "minigames" -> currentQuest = utils.createItem(Material.ENDER_EYE, ChatColor.DARK_AQUA + utils.messages(p, "currentQuest.minigames"));
+            case "clan" -> currentQuest = utils.createItem(Material.GOAT_HORN, ChatColor.YELLOW + utils.messages(p, "currentQuest.clan"));
+            case "pvp" -> currentQuest = utils.createItem(Material.IRON_SWORD, ChatColor.DARK_RED + utils.messages(p, "currentQuest.pvp"));
+            default /*none*/ -> currentQuest = utils.createItem(Material.BARRIER, ChatColor.RED + utils.messages(p, "currentQuest.none"));
+        }
+        inv.setItem(12, currentQuest);
+    
         return inv;
     }
+    
+    private void addTabItem(Inventory inv, int slot, Material material, String link, Player p, String confLink) {
+        
+        List<String> disabled = Arrays.asList(ChatColor.RED + "" + ChatColor.BOLD + utils.messages(p, "disabled"));
+        List<String> enabled = Arrays.asList(ChatColor.GREEN + "" + ChatColor.BOLD + utils.messages(p, "enabled"));
+
+        if (config.getBoolean("customizeTab_"+link+"."+confLink+"."+p.getUniqueId())) {
+            inv.setItem(slot, utils.createItem(material, ChatColor.RESET+""+ChatColor.WHITE+utils.messages(p, link), enabled));
+        } else {
+            inv.setItem(slot, utils.createItem(material, ChatColor.RESET+""+ChatColor.WHITE+utils.messages(p, link), disabled));
+        }
+    }
+    
 }

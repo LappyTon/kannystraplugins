@@ -111,18 +111,24 @@ public class CustomGuiListener implements Listener {
 
             switch (item.getType()) {
                 case BELL:
+                    p.openInventory(customizeGui.customizeTab(p, "lobby"));
                     break;
                 case IRON_AXE:
+                    p.openInventory(customizeGui.customizeTab(p, "pvpWorld"));
                     break;
                 case ENDER_PEARL:
+                    p.openInventory(customizeGui.customizeTab(p, "minigamesWorld"));
                     break;
                 case PAINTING:
                     break;
                 case DIAMOND_PICKAXE:
+                    p.openInventory(customizeGui.customizeTab(p, "pveWorld"));
                     break;
                 case DIAMOND_SWORD:
+                    p.openInventory(customizeGui.customizeTab(p, "pvp"));
                     break;
                 case ENDER_EYE:
+                    p.openInventory(customizeGui.customizeTab(p, "minigame"));
                     break;
                 case YELLOW_DYE:
                     break;
@@ -131,7 +137,38 @@ public class CustomGuiListener implements Listener {
             }
         }
     }
+    @EventHandler
+    public void customizeTabListener(InventoryClickEvent e) {
+        if (e.getWhoClicked() instanceof Player p) {
+            Inventory clickedInventory = e.getClickedInventory();
+            for (String link : new String[]{"lobby","pvp", "pvpWorld", "lobby", "pveWorlds", "minigame", "minigamesWorld"}) {
+                if (utils.areInventoriesEqual(clickedInventory, customizeGui.customizeTab(p, link))) {
+                    p.sendMessage("2");
+                    switch (e.getSlot()) {
+                        case 28 -> toggleTabCustom(p, link, "clanPlayersOnline");
+                        case 19 -> toggleTabCustom(p, link, "playerSorting");
+                        case 40 -> toggleTabCustom(p, link, "balance");
+                        case 41 -> toggleTabCustom(p, link, "killStreak");
+                        case 13 -> toggleTabCustom(p, link, "name");
+                        case 39 -> toggleTabCustom(p, link, "ahItems");
+                        case 14 -> toggleTabCustom(p, link, "worldName");
+                        case 25 -> toggleTabCustom(p, link, "nextEvent");
+                        case 34 -> toggleTabCustom(p, link, "clanPlayersOnline");
+                        case 12 -> toggleTabCustom(p, link, "clanPlayersOnline");
+                        default -> {}
+                    } 
+                    e.setCancelled(true);
+                    break;
+                } else {
+                    p.sendMessage("1");
+                }
+            }
+        }
+    }
 
+    private void toggleTabCustom(Player p, String link, String confLink) {
+        config.set("customizeTab_"+link+"."+confLink+"."+p.getUniqueId(), !(config.getBoolean("customizeTab_"+link+"."+confLink+"."+p.getUniqueId(), false)));
+    }
     private void handleChatInventoryClick(Player p, ItemStack clickedItem, Inventory chatInventory) {
         if (clickedItem.isSimilar(chatInventory.getItem(20))) {
             toggleConfigBoolean("customize.chat.monochrome." + p.getUniqueId());

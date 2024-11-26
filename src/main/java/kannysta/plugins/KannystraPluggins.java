@@ -41,41 +41,110 @@ public final class KannystraPluggins extends JavaPlugin {
         // getConfig().set("messages..ru_RU", "");
 
 
+        getConfig().set("messages.currentQuest.pve.en_US", "Current quests: PVE");
+        getConfig().set("messages.currentQuest.pve.uk_UA", "Поточні завдання: PVE");
+        getConfig().set("messages.currentQuest.pve.ru_RU", "Текущие задания: PVE");
+
+        getConfig().set("messages.currentQuest.minigames.en_US", "Current quests: Minigames");
+        getConfig().set("messages.currentQuest.minigames.uk_UA", "Поточні завдання: Мініігри");
+        getConfig().set("messages.currentQuest.minigames.ru_RU", "Текущие задания: Мини-игры");
+
+        getConfig().set("messages.currentQuest.pvp.en_US", "Current quests: PVP");
+        getConfig().set("messages.currentQuest.pvp.uk_UA", "Поточні завдання: PVP");
+        getConfig().set("messages.currentQuest.pvp.ru_RU", "Текущие задания: PVP");
+
+        getConfig().set("messages.currentQuest.clan.en_US", "Current quests: Clan");
+        getConfig().set("messages.currentQuest.clan.uk_UA", "Поточні завдання: Клан");
+        getConfig().set("messages.currentQuest.clan.ru_RU", "Текущие задания: Клан");
+
+        getConfig().set("messages.currentQuest.none.en_US", "Current quests: None");
+        getConfig().set("messages.currentQuest.none.uk_UA", "Поточні завдання: Немає");
+        getConfig().set("messages.currentQuest.none.ru_RU", "Текущие задания: Нету");
+
         getConfig().set("messages.tabConfig.en_US", "Tab configuration");
         getConfig().set("messages.tabConfig.uk_UA", "Конфігурація табу");
         getConfig().set("messages.tabConfig.ru_RU", "Конфигурация таба");
+
         
-        getConfig().set("messages.tabItem_lobby.en_US", "Change tab for lobby");
-        getConfig().set("messages.tabItem_lobby.uk_UA", "Змінити таб для лобі");
-        getConfig().set("messages.tabItem_lobby.ru_RU", "Изменить таб для лобби");
+        getConfig().set("messages.tabItem.clanPlayersOnline.en_US", "Highlight clan players online");
+        getConfig().set("messages.tabItem.clanPlayersOnline.uk_UA", "Виділити онлайн гравців клану");
+        getConfig().set("messages.tabItem.clanPlayersOnline.ru_RU", "Выделить онлайн игроков клана");
+
+        getConfig().set("messages.tabItem.playerSorting.en_US", "Change player sorting");
+        getConfig().set("messages.tabItem.playerSorting.uk_UA", "Змінити сортування гравців");
+        getConfig().set("messages.tabItem.playerSorting.ru_RU", "Изменить сортировку игроков");
+
+        getConfig().set("messages.tabItem.balance.en_US", "Add balance");
+        getConfig().set("messages.tabItem.balance.uk_UA", "Додати баланс");
+        getConfig().set("messages.tabItem.balance.ru_RU", "Добавить баланс");
+
+        getConfig().set("messages.tabItem.killStreak.en_US", "Add killstreak");
+        getConfig().set("messages.tabItem.killStreak.uk_UA", "Додати серію вбивств");
+        getConfig().set("messages.tabItem.killStreak.ru_RU", "Добавить серию убийств");
+
+        getConfig().set("messages.tabItem.name.en_US", "Add name");
+        getConfig().set("messages.tabItem.name.uk_UA", "Додати ім'я");
+        getConfig().set("messages.tabItem.name.ru_RU", "Добавить имя");
+
+        getConfig().set("messages.tabItem.ahItems.en_US", "Add number of auction items (/ah)");
+        getConfig().set("messages.tabItem.ahItems.uk_UA", "Додати кількість предметів на аукціоні (/ah)");
+        getConfig().set("messages.tabItem.ahItems.ru_RU", "Добавить количество предметов на аукционе (/ah)");
+
+        getConfig().set("messages.tabItem.worldName.en_US", "Add current worlds name");
+        getConfig().set("messages.tabItem.worldName.uk_UA", "Додати назву поточного світу");
+        getConfig().set("messages.tabItem.worldName.ru_RU", "Добавить название текущего мира");
+
+        getConfig().set("messages.tabItem.nextEvent.en_US", "Add next event (time and name)");
+        getConfig().set("messages.tabItem.nextEvent.uk_UA", "Додати наступну подію (час і назву)");
+        getConfig().set("messages.tabItem.nextEvent.ru_RU", "Добавить следующее событие (время и название)");
+
+        getConfig().set("messages.tabItem.nextEventInaccessible.en_US", "Add next event: There is no events in this world!");
+        getConfig().set("messages.tabItem.nextEventInaccessible.uk_UA", "Додати наступний івент: У цьому світі немає івентів!");
+        getConfig().set("messages.tabItem.nextEventInaccessible.ru_RU", "Добавить следующий ивент: В этом мире нет ивентов!");
         
-        getConfig().set("messages.tabItem_pveWorld.en_US", "Change tab for pve worlds");
-        getConfig().set("messages.tabItem_pveWorld.uk_UA", "Змінити таб для PvE-світів");
-        getConfig().set("messages.tabItem_pveWorld.ru_RU", "Изменить таб для PvE-миров");
+        getConfig().set("messages.tabItem.nextRestart.en_US", "Add next restart time");
+        getConfig().set("messages.tabItem.nextRestart.uk_UA", "Додати час наступного перезапуску");
+        getConfig().set("messages.tabItem.nextRestart.ru_RU", "Добавить время следующей перезагрузки");
+
+        getConfig().set("messages.tabItem.currentQuest.en_US", "Add current quest status");
+        getConfig().set("messages.tabItem.currentQuest.uk_UA", "Додати статус поточного завдання");
+        getConfig().set("messages.tabItem.currentQuest.ru_RU", "Добавить статус текущего задания");
+
+        getConfig().set("messages.tabItem.lobby.en_US", "Change tab for lobby");
+        getConfig().set("messages.tabItem.lobby.uk_UA", "Змінити таб для лобі");
+        getConfig().set("messages.tabItem.lobby.ru_RU", "Изменить таб для лобби");
         
-        getConfig().set("messages.tabItem_pvpWorld.en_US", "Change tab for pvp worlds");
-        getConfig().set("messages.tabItem_pvpWorld.uk_UA", "Змінити таб для PvP-світів");
-        getConfig().set("messages.tabItem_pvpWorld.ru_RU", "Изменить таб для PvP-миров");
+        getConfig().set("messages.tabItem.lobby.en_US", "Change tab for lobby");
+        getConfig().set("messages.tabItem.lobby.uk_UA", "Змінити таб для лобі");
+        getConfig().set("messages.tabItem.lobby.ru_RU", "Изменить таб для лобби");
         
-        getConfig().set("messages.tabItem_pvp.en_US", "Change tab in pvp mode");
-        getConfig().set("messages.tabItem_pvp.uk_UA", "Змінити таб в режимі PvP");
-        getConfig().set("messages.tabItem_pvp.ru_RU", "Изменить таб в режиме PvP");
+        getConfig().set("messages.tabItem.pveWorld.en_US", "Change tab for pve worlds");
+        getConfig().set("messages.tabItem.pveWorld.uk_UA", "Змінити таб для PvE-світів");
+        getConfig().set("messages.tabItem.pveWorld.ru_RU", "Изменить таб для PvE-миров");
         
-        getConfig().set("messages.tabItem_minigamesWorld.en_US", "Change tab for minigame worlds");
-        getConfig().set("messages.tabItem_minigamesWorld.uk_UA", "Змінити таб для світів з мінііграми");
-        getConfig().set("messages.tabItem_minigamesWorld.ru_RU", "Изменить таб для миров с мини-играми");
+        getConfig().set("messages.tabItem.pvpWorld.en_US", "Change tab for pvp worlds");
+        getConfig().set("messages.tabItem.pvpWorld.uk_UA", "Змінити таб для PvP-світів");
+        getConfig().set("messages.tabItem.pvpWorld.ru_RU", "Изменить таб для PvP-миров");
         
-        getConfig().set("messages.tabItem_minigame.en_US", "Change tab in minigame");
-        getConfig().set("messages.tabItem_minigame.uk_UA", "Змінити таб в мінігрі");
-        getConfig().set("messages.tabItem_minigame.ru_RU", "Изменить таб в мини-игре");
+        getConfig().set("messages.tabItem.pvp.en_US", "Change tab in pvp mode");
+        getConfig().set("messages.tabItem.pvp.uk_UA", "Змінити таб в режимі PvP");
+        getConfig().set("messages.tabItem.pvp.ru_RU", "Изменить таб в режиме PvP");
         
-        getConfig().set("messages.tabItem_style.en_US", "Change tab style");
-        getConfig().set("messages.tabItem_style.uk_UA", "Змінити стиль табу");
-        getConfig().set("messages.tabItem_style.ru_RU", "Изменить стиль таба");
+        getConfig().set("messages.tabItem.minigamesWorld.en_US", "Change tab for minigame worlds");
+        getConfig().set("messages.tabItem.minigamesWorld.uk_UA", "Змінити таб для світів з мінііграми");
+        getConfig().set("messages.tabItem.minigamesWorld.ru_RU", "Изменить таб для миров с мини-играми");
         
-        getConfig().set("messages.tabItem_colors.en_US", "Change tab color");
-        getConfig().set("messages.tabItem_colors.uk_UA", "Змінити колір табу");
-        getConfig().set("messages.tabItem_colors.ru_RU", "Изменить цвет таба");
+        getConfig().set("messages.tabItem.minigame.en_US", "Change tab in minigame");
+        getConfig().set("messages.tabItem.minigame.uk_UA", "Змінити таб в мінігрі");
+        getConfig().set("messages.tabItem.minigame.ru_RU", "Изменить таб в мини-игре");
+        
+        getConfig().set("messages.tabItem.style.en_US", "Change tab style");
+        getConfig().set("messages.tabItem.style.uk_UA", "Змінити стиль табу");
+        getConfig().set("messages.tabItem.style.ru_RU", "Изменить стиль таба");
+        
+        getConfig().set("messages.tabItem.colors.en_US", "Change tab color");
+        getConfig().set("messages.tabItem.colors.uk_UA", "Змінити колір табу");
+        getConfig().set("messages.tabItem.colors.ru_RU", "Изменить цвет таба");
         
         getConfig().set("messages.prefix_clan.en_US", "Clan Name");
         getConfig().set("messages.prefix_clan.uk_UA", "Назва клану");

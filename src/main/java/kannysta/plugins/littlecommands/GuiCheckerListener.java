@@ -18,9 +18,8 @@ public class GuiCheckerListener implements Listener {
     @EventHandler
     public void onInvChecker(InventoryClickEvent e) {
         Player p = (Player) e.getWhoClicked();
-        if (utils.areInventoriesEqual(e.getClickedInventory(), checker.getInv(p))) {
+        if (e.getView().getTitle()=="guichecker") {
             p.sendMessage(""+e.getSlot());
-            e.setCancelled(true);
         }
     }
 }

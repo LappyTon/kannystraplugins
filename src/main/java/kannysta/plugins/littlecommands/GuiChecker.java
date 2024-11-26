@@ -20,9 +20,7 @@ public class GuiChecker implements CommandExecutor {
         return true;
     }
     public Inventory getInv(Player p) {
-        Inventory inv = Bukkit.createInventory(p, 54, "");
-        ItemStack item = new ItemStack(Material.ACACIA_BUTTON);
-        inv.addItem(item);
+        Inventory inv = Bukkit.createInventory(p, 54, "guichecker");
         return inv;
     }
     
