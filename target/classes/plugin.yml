@@ -56,3 +56,32 @@ commands:
     aliases:
       - GuiChecker
       - GUICHECKER
+  pve:
+    aliases:
+      - pveworlds
+      - пве
+      - пвесвіти
+      - пвемиры
+  build:
+   aliases:
+      - bpve
+      - бпве
+      - buildworld
+      - будування
+      - строительство
+  plants:
+    aliases:
+      - ppve
+      - ппве
+      - plantsworld
+      - рослини
+      - растения
+  redstone:
+    aliases:
+      - rpve
+      - рпве
+      - redstoneworld
+      - редстоун
+  getworld:
+    aliases:
+      - worldget

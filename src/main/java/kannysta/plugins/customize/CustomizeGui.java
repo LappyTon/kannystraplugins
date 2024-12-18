@@ -20,7 +20,7 @@ import kannysta.plugins.KannystraPluggins;
 import kannysta.plugins.Utils;
 import net.md_5.bungee.api.ChatColor;
 
-public class CustomizeGui {
+ public class CustomizeGui {
     private final KannystraPluggins pluggins;
     private final Utils utils;
     private FileConfiguration config;
@@ -222,59 +222,69 @@ public class CustomizeGui {
     public Inventory customizeTabInventory(Player p) {
         Inventory inv = Bukkit.createInventory(p, 54);
 
-        inv.setItem(20, utils.createItem(Material.BELL, ChatColor.WHITE+utils.messages(p, "tabItem.lobby")));        
-        inv.setItem(29, utils.createItem(Material.DIAMOND_PICKAXE, ChatColor.GREEN+utils.messages(p, "tabItem.pveWorld")));        
-        inv.setItem(21, utils.createItem(Material.IRON_AXE, ChatColor.RED+utils.messages(p, "tabItem.pvpWorld")));        
-        inv.setItem(30, utils.createItem(Material.DIAMOND_SWORD, ChatColor.DARK_RED+utils.messages(p, "tabItem.pvp")));        
-        inv.setItem(22, utils.createItem(Material.ENDER_PEARL, ChatColor.GREEN+utils.messages(p, "tabItem.minigamesWorld")));        
-        inv.setItem(31, utils.createItem(Material.ENDER_EYE, ChatColor.DARK_GREEN+utils.messages(p, "tabItem.minigame")));    
-        inv.setItem(24, utils.createItem(Material.PAINTING, ChatColor.WHITE+utils.messages(p, "tabItem.style")));
-        inv.setItem(33, utils.createItem(Material.YELLOW_DYE, ChatColor.WHITE+utils.messages(p, "tabItem.colors")));
+        inv.setItem(20, utils.createItem(Material.BELL, ChatColor.WHITE+utils.messages(p, "tabItem.lobby")));
+        inv.setItem(29, utils.createItem(Material.DIAMOND_PICKAXE, ChatColor.GREEN+utils.messages(p, "tabItem.pveWorld")));
+        inv.setItem(21, utils.createItem(Material.IRON_AXE, ChatColor.RED+utils.messages(p, "tabItem.pvpWorld")));
+        inv.setItem(30, utils.createItem(Material.DIAMOND_SWORD, ChatColor.DARK_RED+utils.messages(p, "tabItem.pvp")));
+        inv.setItem(22, utils.createItem(Material.ENDER_PEARL, ChatColor.GREEN+utils.messages(p, "tabItem.minigamesWorld")));
+        inv.setItem(31, utils.createItem(Material.ENDER_EYE, ChatColor.DARK_GREEN+utils.messages(p, "tabItem.minigame")));
+        inv.setItem(24, utils.createItem(Material.PAINTING, ChatColor.GREEN+utils.messages(p, "tabItem.style")));
+        inv.setItem(33, utils.createItem(Material.YELLOW_DYE, ChatColor.GREEN+utils.messages(p, "tabItem.colors")));
         return inv;
     }
 
     public Inventory customizeTab(Player p, String link) {
-        Inventory inv = Bukkit.createInventory(p, 54);
-        String tabLink = "customizeTab_" + link;
-    
-        addTabItem(inv, 28, Material.BELL, "tabItem.clanPlayersOnline", p, "clanPlayersOnline");
-        addTabItem(inv, 19, Material.COMPARATOR, "tabItem.playerSorting", p, "playerSorting");
-        addTabItem(inv, 40, Material.SUNFLOWER, "tabItem.balance", p, "balance");
-        addTabItem(inv, 41, Material.DIAMOND_AXE, "tabItem.killStreak", p, "killStreak");
-        addTabItem(inv, 13, Material.NAME_TAG, "tabItem.name", p, "name");
-        addTabItem(inv, 39, Material.AMETHYST_CLUSTER, "tabItem.ahItems", p, "ahItems");
-        addTabItem(inv, 14, Material.NAME_TAG, "tabItem.worldName", p, "worldName");
-    
-        if (link.equals("pvp") || link.equals("pvpWorld")) {
-            addTabItem(inv, 25, Material.RECOVERY_COMPASS, utils.messages(p, "tabItem.nextEvent"), p, "nextEvent");
-        } else inv.setItem(25, utils.createItem(Material.BARRIER, ChatColor.RED+utils.messages(p, "tabItem.nextEventInaccessible")));
-    
-        addTabItem(inv, 34, Material.CLOCK, "tabItem.nextRestart", p, "nextRestart");
-    
-        String quest = config.getString(tabLink + ".currentQuest", "");
-        ItemStack currentQuest;
-        switch (quest) {
-            case "pve" -> currentQuest = utils.createItem(Material.WHEAT_SEEDS, ChatColor.GREEN + utils.messages(p, "currentQuest.pve"));
-            case "minigames" -> currentQuest = utils.createItem(Material.ENDER_EYE, ChatColor.DARK_AQUA + utils.messages(p, "currentQuest.minigames"));
-            case "clan" -> currentQuest = utils.createItem(Material.GOAT_HORN, ChatColor.YELLOW + utils.messages(p, "currentQuest.clan"));
-            case "pvp" -> currentQuest = utils.createItem(Material.IRON_SWORD, ChatColor.DARK_RED + utils.messages(p, "currentQuest.pvp"));
-            default /*none*/ -> currentQuest = utils.createItem(Material.BARRIER, ChatColor.RED + utils.messages(p, "currentQuest.none"));
+        Inventory inv = Bukkit.createInventory(p, 54, link);
+        
+        ItemStack clanPlayersOnline = utils.createItemCustom(p, Material.BELL, "tabItem.clanPlayersOnline", 
+            (tabitemCheck(p, link, "clanPlayersOnline")) ? true : false);
+        ItemStack playerSorting = utils.createItemCustom(p, Material.COMPARATOR, "tabItem.playerSorting", 
+        (tabitemCheck(p, link, "playerSorting")) ? true : false);
+
+        ItemStack balance = utils.createItemCustom(p, Material.SUNFLOWER, "tabItem.balance", 
+            (tabitemCheck(p, link, "balance")) ? true : false);
+        ItemStack killStreak = utils.createItemCustom(p, Material.DIAMOND_AXE, "tabItem.killStreak", 
+            (tabitemCheck(p, link, "killStreak")) ? true : false);
+        ItemStack name = utils.createItemCustom(p, Material.NAME_TAG, "tabItem.name", 
+            (tabitemCheck(p, link, "name")) ? true : false);
+        ItemStack ahItems = utils.createItemCustom(p, Material.AMETHYST_CLUSTER, "tabItem.ahItems", 
+            (tabitemCheck(p, link, "ahItems")) ? true : false);
+        ItemStack worldName = utils.createItemCustom(p, Material.NAME_TAG, "tabItem.worldName", 
+            (tabitemCheck(p, link, "worldName")) ? true : false);
+        ItemStack nextRestart = utils.createItemCustom(p, Material.CLOCK, "tabItem.nextRestart", 
+        (tabitemCheck(p, link, "nextRestart")) ? true : false);
+        ItemStack nextEvent;
+        if (link=="pvp"||link=="pvpWorld") {
+            nextEvent = utils.createItemCustom(p, Material.RECOVERY_COMPASS, "tabItem.nextEvent", 
+            (tabitemCheck(p, link, "nextEvent")) ? true : false);
+        } else {
+            nextEvent = utils.createItemCustom(p, Material.BARRIER, "tabItem.nextEventInaccessible");
         }
-        inv.setItem(12, currentQuest);
-    
+        
+        String questString = "tabItem.currentQuest.";
+        Material questMaterial;
+        switch (config.getString("customizeTab_"+link+".currentQuest."+p.getName(), "")) {
+            case "pvp" -> {questString += "pvp"; questMaterial = Material.IRON_SWORD;}
+            case "pve" -> {questString += "pve"; questMaterial = Material.WHEAT_SEEDS;}
+            case "clan" -> {questString += "clan"; questMaterial = Material.BELL;}
+            default -> {questString += "minigames"; questMaterial = Material.ENDER_EYE;}
+        }
+        ItemStack currentQuest = utils.createItemCustom(p, questMaterial, questString);
+        
+
+        inv.setItem(20, clanPlayersOnline);
+        inv.setItem(29, playerSorting);
+        inv.setItem(21, balance);
+        inv.setItem(31, killStreak);
+        inv.setItem(30, name);
+        inv.setItem(22, ahItems);
+        inv.setItem(23, worldName);
+        inv.setItem(33, nextRestart);
+        inv.setItem(24, nextEvent);
+        inv.setItem(32, currentQuest);
         return inv;
     }
-    
-    private void addTabItem(Inventory inv, int slot, Material material, String link, Player p, String confLink) {
-        
-        List<String> disabled = Arrays.asList(ChatColor.RED + "" + ChatColor.BOLD + utils.messages(p, "disabled"));
-        List<String> enabled = Arrays.asList(ChatColor.GREEN + "" + ChatColor.BOLD + utils.messages(p, "enabled"));
-
-        if (config.getBoolean("customizeTab_"+link+"."+confLink+"."+p.getUniqueId())) {
-            inv.setItem(slot, utils.createItem(material, ChatColor.RESET+""+ChatColor.WHITE+utils.messages(p, link), enabled));
-        } else {
-            inv.setItem(slot, utils.createItem(material, ChatColor.RESET+""+ChatColor.WHITE+utils.messages(p, link), disabled));
-        }
+    private boolean tabitemCheck(Player p, String link, String itemLink) {
+        return config.getBoolean("customizeTab_"+link+"."+itemLink+"."+p.getName(), false); 
     }
-    
 }

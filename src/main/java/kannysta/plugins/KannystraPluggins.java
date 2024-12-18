@@ -4,6 +4,7 @@ import kannysta.plugins.customize.CustomGuiListener;
 import kannysta.plugins.customize.CustomizeCommand;
 import kannysta.plugins.language.LanguageCommand;
 import kannysta.plugins.littlecommands.FeedCommand;
+import kannysta.plugins.littlecommands.GetWorld;
 import kannysta.plugins.littlecommands.GuiChecker;
 import kannysta.plugins.littlecommands.GuiCheckerListener;
 import kannysta.plugins.littlecommands.HubCommand;
@@ -13,19 +14,29 @@ import kannysta.plugins.login.PlayerLeaveListener;
 import kannysta.plugins.login.RegisterListeners;
 import kannysta.plugins.mainMenu.MainMenuCommand;
 import kannysta.plugins.worlds.HubListeners;
+import kannysta.plugins.worlds.PveWorlds;
 import kannysta.plugins.worlds.PvpWorlds;
 import kannysta.plugins.worlds.WorldsInventoryListener;
+import kannysta.plugins.worlds.commands.BuildCommand;
+import kannysta.plugins.worlds.commands.PlantsCommand;
+import kannysta.plugins.worlds.commands.PveWorldsCommand;
 import kannysta.plugins.worlds.commands.PvpWorldsCommand;
+import kannysta.plugins.worlds.commands.RedstoneCommand;
 import kannysta.plugins.worlds.commands.WorldsCommand;
 import kannysta.plugins.worlds.commands.netherPvp;
 
+import java.io.File;
+
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.player.PlayerJoinEvent;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public final class KannystraPluggins extends JavaPlugin {
 
+    YamlConfiguration vaultConfig;
     @Override
     public void onEnable() {
         System.out.println(" ");
@@ -34,13 +45,82 @@ public final class KannystraPluggins extends JavaPlugin {
         System.out.println(" ");
         System.out.println(" ");
 
+        Plugin vaultPlugin = Bukkit.getPluginManager().getPlugin("VaultPlugin");
+        if (vaultPlugin != null && vaultPlugin.isEnabled()) {
+            File vaultDataFile = new File(vaultPlugin.getDataFolder(), "vault_data.yml");
+    
+            if (vaultDataFile.exists()) {
+                vaultConfig = YamlConfiguration.loadConfiguration(vaultDataFile);
+                getLogger().warning("[KannystraPlugin] VaultPlugin data file exist!");
+            } else {
+                getLogger().warning("VaultPlugin data file (vault_data.yml) does not exist!");
+            }
+        } else {
+            getLogger().severe("VaultPlugin is not found or not enabled!");
+        }
+
         getConfig().options().copyDefaults();
         
         // getConfig().set("messages..en_US", "");
         // getConfig().set("messages..uk_UA", "");
         // getConfig().set("messages..ru_RU", "");
 
+        getConfig().set("messages.yourBalance.en_US", "Your balance: ");
+        getConfig().set("messages.yourBalance.uk_UA", "Ваш баланс: ");
+        getConfig().set("messages.yourBalance.ru_RU", "Ваш баланс: ");
 
+        getConfig().set("messages.moneyAdded.en_US", "Added & money to your account");
+        getConfig().set("messages.moneyAdded.uk_UA", "Додано & грошей на ваш рахунок");
+        getConfig().set("messages.moneyAdded.ru_RU", "Добавлено & денег на ваш счёт");
+        
+        getConfig().set("messages.noMoneyAdded.en_US", "Nothing to add");
+        getConfig().set("messages.noMoneyAdded.uk_UA", "Нічого додати");
+        getConfig().set("messages.noMoneyAdded.ru_RU", "Нечего добавить");
+        
+        getConfig().set("messages.rtpNotSupported.en_US", "Random teleport is not available in this world");
+        getConfig().set("messages.rtpNotSupported.uk_UA", "Випадкове телепортування недоступне у цьому світі");
+        getConfig().set("messages.rtpNotSupported.ru_RU", "Случайный телепорт недоступен в этом мире");
+
+        getConfig().set("messages.pveWorldsItem.modifiers.en_US", "Modifiers:");
+        getConfig().set("messages.pveWorldsItem.modifiers.uk_UA", "Модифікатори:");
+        getConfig().set("messages.pveWorldsItem.modifiers.ru_RU", "Модификаторы:");
+        
+        getConfig().set("messages.pveWorldsItem.plants.en_US", "FERMS/PLANTS World");
+        getConfig().set("messages.pveWorldsItem.plants.uk_UA", "Світ ФЕРМ/РОСЛИН");
+        getConfig().set("messages.pveWorldsItem.plants.ru_RU", "Мир ФЕРМ/РАСТЕНИЙ");
+        
+        getConfig().set("messages.pveWorldsItem.redstone.en_US", "REDSTONE World");
+        getConfig().set("messages.pveWorldsItem.redstone.uk_UA", "Світ РЕДСТОУНУ");
+        getConfig().set("messages.pveWorldsItem.redstone.ru_RU", "Мир РЕДСТОУНА");
+        
+        getConfig().set("messages.pveWorldsItem.build.en_US", "BUILDING World");
+        getConfig().set("messages.pveWorldsItem.build.uk_UA", "Світ БУДІВНИЦТВА");
+        getConfig().set("messages.pveWorldsItem.build.ru_RU", "Мир СТРОИТЕЛЬСТВА");
+        
+        getConfig().set("messages.pveWorldsItem.plants.version.en_US", "Version: 1.18 + (Server on 1.21.1)");
+        getConfig().set("messages.pveWorldsItem.plants.version.uk_UA", "Версія: 1.18 + (Сервер на 1.21.1)");
+        getConfig().set("messages.pveWorldsItem.plants.version.ru_RU", "Версия: 1.18 + (Сервер на 1.21.1)");
+        
+        getConfig().set("messages.pveWorldsItem.plants.modifiersList.en_US", "u6y4u'op9oiuyjth8io.;lkjihnbu");
+        getConfig().set("messages.pveWorldsItem.plants.modifiersList.uk_UA", "Ріст рослин збільшено на 20%>Швидкість появи мобів звичайна>Максимум редстоуну в одному чанку: 50>Межі світу — 30.000 блоків");
+        getConfig().set("messages.pveWorldsItem.plants.modifiersList.ru_RU", "Рост растений увеличен на 20%>Скорость появления мобов нормальная>Максимум редстоуна в одном чанке: 50>Границы мира — 30.000 блоков");
+        
+        getConfig().set("messages.pveWorldsItem.redstone.version.en_US", "Version: 1.18 + (Server on 1.21.1)");
+        getConfig().set("messages.pveWorldsItem.redstone.version.uk_UA", "Версія: 1.18 + (Сервер на 1.21.1)");
+        getConfig().set("messages.pveWorldsItem.redstone.version.ru_RU", "Версия: 1.18 + (Сервер на 1.21.1)");
+        
+        getConfig().set("messages.pveWorldsItem.build.modifiersList.en_US", "Plants are disabled>Mobs are disabled>Max redstone in one chunk: 100>Worlds borders are 500 blocks long");
+        getConfig().set("messages.pveWorldsItem.build.modifiersList.uk_UA", "Рослини вимкнені>Моби вимкнені>Максимум редстоуну в одному чанку: 100>Межі світу — 500 блоків");
+        getConfig().set("messages.pveWorldsItem.build.modifiersList.ru_RU", "Растения отключены>Мобы отключены>Максимум редстоуна в одном чанке: 100>Границы мира — 500 блоков");
+
+        getConfig().set("messages.pveWorldsItem.build.version.en_US", "Version: 1.20 + (Server on 1.21.1)");
+        getConfig().set("messages.pveWorldsItem.build.version.uk_UA", "Версія: 1.20 + (Сервер на 1.21.1)");
+        getConfig().set("messages.pveWorldsItem.build.version.ru_RU", "Версия: 1.20 + (Сервер на 1.21.1)");
+        
+        getConfig().set("messages.pveWorldsItem.redstone.modifiersList.en_US", "Plants grow decreased by 90%>Mobs spawn rate decreased by 50%>No redstone limit>Worlds borders are 30.000 blocks long");
+        getConfig().set("messages.pveWorldsItem.redstone.modifiersList.uk_UA", "Ріст рослин зменшено на 90%>Швидкість появи мобів зменшена на 50%>Обмежень на редстоун немає>Межі світу — 30.000 блоків");
+        getConfig().set("messages.pveWorldsItem.redstone.modifiersList.ru_RU", "Рост растений уменьшен на 90%>Скорость появления мобов уменьшена на 50%>Ограничений на редстоун нет>Границы мира — 30.000 блоков");
+        
         getConfig().set("messages.currentQuest.pve.en_US", "Current quests: PVE");
         getConfig().set("messages.currentQuest.pve.uk_UA", "Поточні завдання: PVE");
         getConfig().set("messages.currentQuest.pve.ru_RU", "Текущие задания: PVE");
@@ -236,17 +316,17 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("messages.chatLang_ua.uk_UA", "Мова глобального чату: Українська");
         getConfig().set("messages.chatLang_ua.ru_RU", "Язык глобального чата: Украинский");
 
-        getConfig().set("messages.chatLangChange_eng.en_US", "&7Change language to: &fUkrainian");
+        getConfig().set("messages.chatLangChange_eng.en_US", "&7Change language to: &English");
         getConfig().set("messages.chatLangChange_eng.uk_UA", "&7Змінити мову на: &fАнглійську");
-        getConfig().set("messages.chatLangChange_eng.ru_RU", "&7Change language to: &fRussian");
+        getConfig().set("messages.chatLangChange_eng.ru_RU", "&7Поменять язык на: &fАнглийский");
         
-        getConfig().set("messages.chatLangChange_ru.en_US", "&7Change language to: &fUkrainian");
-        getConfig().set("messages.chatLangChange_ru.uk_UA", "&7Змінити мову на: &fУкраїнську");
+        getConfig().set("messages.chatLangChange_ru.en_US", "&7Change language to: &fRussian");
+        getConfig().set("messages.chatLangChange_ru.uk_UA", "&7Змінити мову на: &fРосійську");
         getConfig().set("messages.chatLangChange_ru.ru_RU", "&7Change language to: &fEnglish");
         
-        getConfig().set("messages.chatLangChange_ua.en_US", "&7Change language to: &fRussian");
-        getConfig().set("messages.chatLangChange_ua.uk_UA", "&7Змінити мову на: &fРосійську");
-        getConfig().set("messages.chatLangChange_ua.ru_RU", "&7Change language to: &fUkrainian");
+        getConfig().set("messages.chatLangChange_ua.en_US", "&7Change language to: &fUkraiain");
+        getConfig().set("messages.chatLangChange_ua.uk_UA", "&7Змінити мову на: &fУкраїнську");
+        getConfig().set("messages.chatLangChange_ua.ru_RU", "&7Поменять язык на: &fУкраинский");
         
         getConfig().set("messages.newbieTips.en_US", "Newbie tips:");
         getConfig().set("messages.newbieTips.uk_UA", "Поради для новачків:");
@@ -508,11 +588,17 @@ public final class KannystraPluggins extends JavaPlugin {
         getServer().getPluginManager().registerEvents(new PlayerLeaveListener(this), this);
         getServer().getPluginManager().registerEvents(new WorldsInventoryListener(this), this);
         getServer().getPluginManager().registerEvents(new RegisterListeners(this), this);
+        getServer().getPluginManager().registerEvents(new PveWorlds(this), this);
         getServer().getPluginManager().registerEvents(new CustomGuiListener(this), this);
         getServer().getPluginManager().registerEvents(new PvpWorlds(this), this);
         getServer().getPluginManager().registerEvents(new HubListeners(this), this);
         getServer().getPluginManager().registerEvents(new GuiCheckerListener(this), this);
         getServer().getPluginManager().registerEvents(new LoginJoinListener(this), this);
+        getCommand("getworld").setExecutor(new GetWorld());
+        getCommand("build").setExecutor(new BuildCommand(this));
+        getCommand("redstone").setExecutor(new RedstoneCommand(this));
+        getCommand("plants").setExecutor(new PlantsCommand(this));
+        getCommand("pve").setExecutor(new PveWorldsCommand(this));
         getCommand("netherpvp").setExecutor(new netherPvp(this));
         getCommand("guichecker").setExecutor(new GuiChecker());
         getCommand("customize").setExecutor(new CustomizeCommand(this));
@@ -531,20 +617,28 @@ public final class KannystraPluggins extends JavaPlugin {
         getConfig().set("locations.register", new Location(getServer().getWorld("register"), 0.5, 65.0, 0.5, 0, 0));
         getConfig().set("locations.login", new Location(getServer().getWorld("login"), 0.5, 63.0, 0.5, 0, 0));
         getConfig().set("locations.hub", new Location(getServer().getWorld("hub"), -179, 38, 843, 0, 0));
-
 //
         saveConfig();
         saveDefaultConfig();
 
+//        Get utils
 
     }
-//        Get utils
 
 
     @Override
     public void onDisable() {
-        // Plugin shutdown logic
         saveConfig();
         saveDefaultConfig();
+    }
+    public Utils getUtils() {
+        return new Utils(this);
+    }
+    public YamlConfiguration getVaultData() {
+        return vaultConfig;
+    }
+
+    public int getMoney(Player p) {
+        return vaultConfig.getInt(p.getName());
     }
 }

@@ -1,6 +1,7 @@
 package kannysta.plugins.worlds.commands;
 
 import java.util.HashMap;
+
 import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -13,13 +14,13 @@ import kannysta.plugins.KannystraPluggins;
 import kannysta.plugins.Utils;
 import kannysta.plugins.logics.RtpLogic;
 
-public class netherPvp implements CommandExecutor {
+public class PlantsCommand implements CommandExecutor {
     private final RtpLogic rtpLogic;
     private final Utils utils;
     private final HashMap<Player, Long> cooldowns = new HashMap<>();
     private static final long COOLDOWN_TIME = 2000; // 2 seconds in milliseconds
 
-    public netherPvp(KannystraPluggins plugin) {
+    public PlantsCommand(KannystraPluggins plugin) {
         this.rtpLogic = new RtpLogic(plugin);
         this.utils = new Utils(plugin);
     }
@@ -33,8 +34,8 @@ public class netherPvp implements CommandExecutor {
 
         // Check player's client version
         int version = Via.getAPI().getPlayerVersion(player.getUniqueId());
-        if (version <= 754) { // 1.16.5 version code
-            player.sendMessage(utils.issue(utils.messages(player, "badVersion") + " (1.16.5)"));
+        if (version <= 757) { // 1.18 version code
+            player.sendMessage(utils.issue(utils.messages(player, "badVersion") + " (1.18)"));
             return true;
         }
 
@@ -46,7 +47,7 @@ public class netherPvp implements CommandExecutor {
             return true;
         }
 
-        rtpLogic.teleportPlayer(player, 300, Bukkit.getWorld("netherPvp"));
+        rtpLogic.teleportPlayer(player, 30000, Bukkit.getWorld("plantsPve"));
 
         return true;
     }

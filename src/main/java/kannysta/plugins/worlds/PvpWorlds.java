@@ -22,10 +22,12 @@ public class PvpWorlds implements Listener {
     private final Utils utils;
     private final RtpLogic rtpLogic;
     private final MenuInventory menuInventory;
+    private final KannystraPluggins pluggins;
 
     public PvpWorlds(KannystraPluggins pluggins) {
         this.utils = new Utils(pluggins);
         this.rtpLogic = new RtpLogic(pluggins);
+        this.pluggins = pluggins;
         this.menuInventory = new MenuInventory(pluggins);
     }
 
@@ -127,7 +129,7 @@ public class PvpWorlds implements Listener {
                 crystalPvp.addEnchantment(Enchantment.MENDING, 1);
                 diamondPvp.addEnchantment(Enchantment.MENDING, 1);
             }
-            if (version == 754) {
+            if (version >= 754) {
                 netheritePvp.addEnchantment(Enchantment.MENDING, 1);
             }
             if (version == 1101) {
@@ -155,7 +157,7 @@ public class PvpWorlds implements Listener {
         Player p = (Player) e.getPlayer();
         Inventory pvpInventory = pvpWorldsInventory(p);
         if (utils.areInventoriesEqual(pvpInventory, e.getInventory())) {
-            p.openInventory(menuInventory.WorldsInventory(p));
+            Bukkit.getScheduler().runTask(pluggins, () -> p.openInventory(menuInventory.WorldsInventory(p)));
         }
     }
 }

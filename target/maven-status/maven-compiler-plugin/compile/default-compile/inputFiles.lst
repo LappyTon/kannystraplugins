@@ -5,6 +5,7 @@
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/customize/CustomizeGui.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/language/LanguageCommand.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/littlecommands/FeedCommand.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/littlecommands/GetWorld.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/littlecommands/GuiChecker.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/littlecommands/GuiCheckerListener.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/littlecommands/HubCommand.java
@@ -16,9 +17,16 @@
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/mainMenu/MainMenuCommand.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/mainMenu/MenuInventory.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/tab/TabChange.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/vaultevents/AddMoney.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/vaultevents/ChangeMoney.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/HubListeners.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/PveWorlds.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/PvpWorlds.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/WorldsInventoryListener.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/commands/BuildCommand.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/commands/PlantsCommand.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/commands/PveWorldsCommand.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/commands/PvpWorldsCommand.java
+/home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/commands/RedstoneCommand.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/commands/WorldsCommand.java
 /home/lappy/work/KannystraPlugins/src/main/java/kannysta/plugins/worlds/commands/netherPvp.java

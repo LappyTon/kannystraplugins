@@ -1,5 +1,6 @@
 package kannysta.plugins;
 
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+
+import com.comphenix.protocol.PacketType.Play;
 
 import net.md_5.bungee.api.ChatColor;
 
@@ -63,6 +66,36 @@ public class Utils {
         }
         return itemStack;
     }
+    public ItemStack createItemCustom(Player p, Material material, String link) {
+        ItemStack itemStack = new ItemStack(material);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (itemMeta != null) {
+            itemMeta.setDisplayName(ChatColor.RESET+messages(p, link));
+            itemStack.setItemMeta(itemMeta);
+        }
+        return itemStack;
+    }
+    public ItemStack createItemCustom(Player p, Material material, String link, List<String> lore) {
+        ItemStack itemStack = new ItemStack(material);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (itemMeta != null) {
+            itemMeta.setDisplayName(ChatColor.RESET+messages(p, link));
+            itemMeta.setLore(lore);
+            itemStack.setItemMeta(itemMeta);
+        }
+        return itemStack;
+    }
+    public ItemStack createItemCustom(Player p, Material material, String link, boolean enabled) {
+        ItemStack itemStack = new ItemStack(material);
+        ItemMeta itemMeta = itemStack.getItemMeta();
+        if (itemMeta != null) {
+            itemMeta.setDisplayName(ChatColor.RESET+messages(p, link));
+            itemMeta.setLore((enabled) ? Arrays.asList("",ChatColor.GREEN+messages(p, "enabled")):
+                                         Arrays.asList("",ChatColor.RED+messages(p, "disabled")));
+            itemStack.setItemMeta(itemMeta);
+        }
+        return itemStack;
+    }
 
     public Inventory fullInventory(Player player) {
         Inventory inventory = Bukkit.createInventory(player, 54, "");
@@ -70,8 +103,11 @@ public class Utils {
         return inventory;
     }
 
+    public String cusomizeColors(Player p, String string) {
+        return string;
+    }
     public String messages(Player p, String string) {
-        return pluggins.getConfig().getString("messages."+string+"."+getLang(p));
+        return cusomizeColors(p, pluggins.getConfig().getString("messages."+string+"."+getLang(p)));
     }
     public String issue(String s) {
         StringBuilder string = new StringBuilder();
